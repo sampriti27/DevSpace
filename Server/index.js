@@ -6,13 +6,20 @@ app.use(express.json());
 
 // error handler
 const asyncHandler = require("express-async-handler");
+const errorHandler = require("./src/middlewares/errorHandler");
+
+//initializing dotenv
+require("dotenv").config();
+
+//database connectioon
+const connectDb = require("./src/config/db");
+connectDb();
 
 //importing routes
-
 const userRoutes = require("./src/routes/userRoutes");
 
 //port
-const port = 5000;
+const PORT = process.env.PORT || 3000;
 
 //main api endpoint
 app.get(
@@ -26,6 +33,6 @@ app.get(
 app.use("/api/users", userRoutes);
 
 // server
-app.listen(port, () => {
-  console.log("Server Running on port 5000...");
+app.listen(PORT, () => {
+  console.log(`Server Running on port ${PORT} ...`);
 });
