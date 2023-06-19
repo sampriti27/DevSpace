@@ -4,6 +4,8 @@
 
 Welcome to DevSpace, a social media platform designed exclusively for developers. DevSpace provides a dedicated space for developers to connect with their community, showcase their skills, and engage in meaningful discussions.
 
+[Click here to view the flow of Devspace](https://www.figma.com/file/dAhZFHTSl9n7y9mueCHXjO/Devspace?type=whiteboard&node-id=0%3A1&t=XnLREmKDyCtt8WYB-1)
+
 ## <p style="font-weight : 600">Features</p>
 DevSpace offers the following features:
 
