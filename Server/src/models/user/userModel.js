@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema({
       message: "Email must be in a valid format",
     },
   },
-  userID: {
+  username: {
     type: String,
     required: [true, "Please select a valid userId"],
     unique: [true, "userId already taken!"],
@@ -39,9 +39,25 @@ const userSchema = mongoose.Schema({
         "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.",
     },
   },
+  cPassword: {
+    type: String,
+    required: true,
+    validate: {
+      validator: function (v) {
+        // The password must be at least 8 characters long
+        // and contain at least one uppercase letter, one lowercase letter,
+        // one digit, and one special character.
+        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+          v
+        );
+      },
+      message:
+        "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.",
+    },
+  },
   phone: {
     type: Number,
-    required: true,
+
     validate: {
       validator: function (v) {
         return /\d{10}/.test(v); // validate that number is a 10-digit number
@@ -55,7 +71,7 @@ const userSchema = mongoose.Schema({
   dob: {
     type: Date,
   },
-  profilePhoto: {
+  photo: {
     type: String,
   },
   bio: {
