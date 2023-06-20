@@ -122,7 +122,12 @@ const signin = asyncHandler(async (req, res) => {
 //@access protected
 
 const currentUser = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "Current logged in user route!" });
+  try {
+    const user = await Client.findById(req.user._id);
+    res.json({ message: "this is current user", user });
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 //Desc logout user
@@ -130,7 +135,11 @@ const currentUser = asyncHandler(async (req, res) => {
 //@access public
 
 const signout = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "Logout route!" });
+  try {
+    res.status(200).json({ sucess: "true" });
+  } catch (error) {
+    throw new Error(error);
+  }
 });
 
 module.exports = { register, signin, currentUser, signout };

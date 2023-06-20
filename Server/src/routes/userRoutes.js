@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router(); // initialize express router
 
+const { isVerifiedUser } = require("../middlewares/isVerifiedUser");
+
 const {
   register,
   signin,
@@ -18,7 +20,7 @@ router.route("/register").post(register);
 router.route("/signin").post(signin);
 
 // current user route
-router.route("/").get(currentUser);
+router.route("/").get(isVerifiedUser, currentUser);
 
 // logout route
 router.route("/signout").get(signout);
