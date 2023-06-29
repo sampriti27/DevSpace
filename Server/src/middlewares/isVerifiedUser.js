@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
+const User = require("../models/user/userModel");
 
 const isVerifiedUser = asyncHandler(async (req, res, next) => {
   let token;
@@ -21,9 +22,11 @@ const isVerifiedUser = asyncHandler(async (req, res, next) => {
       }
 
       console.log(decoded);
-      req.user = decoded.user; //match the ids
-
-      next();
+      const { _id } = decoded;
+      User.findById(_id).then((userData) => {
+        req.user = userData;
+        next();
+      });
     });
 
     //token expired or not found

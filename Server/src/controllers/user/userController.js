@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const User = require("../models/user/userModel");
+const User = require("../../models/user/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -84,7 +84,7 @@ const signin = asyncHandler(async (req, res) => {
 
     if (user) {
       //match the user provided password and stored password
-
+      console.log(user);
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
@@ -123,8 +123,9 @@ const signin = asyncHandler(async (req, res) => {
 
 const currentUser = asyncHandler(async (req, res) => {
   try {
-    const user = await Client.findById(req.user._id);
-    res.json({ message: "this is current user", user });
+    req.user.password = undefined;
+    req.user.cPassword = undefined;
+    res.status(200).json({ message: "current user", currentUser: req.user });
   } catch (error) {
     res.json(error);
   }
@@ -132,7 +133,7 @@ const currentUser = asyncHandler(async (req, res) => {
 
 //Desc logout user
 //@route GET /api/user/signout
-//@access public
+//@access protected
 
 const signout = asyncHandler(async (req, res) => {
   try {

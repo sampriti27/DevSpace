@@ -8,7 +8,7 @@ const {
   signin,
   currentUser,
   signout,
-} = require("../controllers/userController");
+} = require("../controllers/user/userController");
 
 //Authentication Routes
 

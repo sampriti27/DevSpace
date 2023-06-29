@@ -17,6 +17,7 @@ connectDb();
 
 //importing routes
 const userRoutes = require("./src/routes/userRoutes");
+const postRoutes = require("./src/routes/postRoutes");
 
 //port
 const PORT = process.env.PORT || 3000;
@@ -30,7 +31,10 @@ app.get(
 );
 
 //user management endpoint
-app.use("/api/users", userRoutes);
+app.use("/api/v1/users", userRoutes);
+
+//post management API endpoints
+app.use("/api/v1/users/post", postRoutes);
 
 // server
 app.listen(PORT, () => {

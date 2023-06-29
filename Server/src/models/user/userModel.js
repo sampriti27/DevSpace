@@ -68,11 +68,15 @@ const userSchema = mongoose.Schema(
       validate: {
         validator: function (v) {
           const words = v.trim().split(/\s+/);
-          return words.length <= 200;
+          return words.length <= 20;
         },
-        message: "Bio should not exceed 200 words.",
+        message: "Bio should not exceed 20 words.",
       },
     },
+    role: {
+      type: String,
+    },
+    links: [],
   },
   {
     timestamp: true,
