@@ -4,17 +4,17 @@ const { isVerifiedUser } = require("../middlewares/isVerifiedUser"); //middlewar
 const {
   addPost,
   getPosts,
-  getPost,
+  getPostById,
   deletePost,
 } = require("../controllers/post/postController");
 
-//post router
+//post routes for user post
 
-router.route("/add-post/:userId").post(isVerifiedUser, addPost);
+router.route("/add-post/").post(isVerifiedUser, addPost);
 
-router.route("/get-posts/:userId").get(isVerifiedUser, getPosts);
+router.route("/get-posts/").get(isVerifiedUser, getPosts);
 
-router.route("/get-post/:postId").get(isVerifiedUser, getPost);
+router.route("/get-post/:postId").get(isVerifiedUser, getPostById);
 
 router.route("/delete-post/:postId").delete(isVerifiedUser, deletePost);
 
