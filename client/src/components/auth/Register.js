@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 
 const Register = ({ setAuthtype }) => {
   return (
-    <div className="flex flex-col justify-center items-center shadow-sm">
+    <div className="flex flex-col justify-center items-center shadow-sm mt-32">
       <div className="border flex flex-col items-center w-96">
         <div className="logo text-5xl font-semibold p-5 mt-5 cursor-pointer">
           DevSpace

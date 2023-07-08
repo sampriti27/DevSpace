@@ -13,7 +13,7 @@ const Login = ({ setAuthtype }) => {
           <input
             type="text"
             placeholder="Enter your email"
-            className="border w-full  outline-none rounded-sm py-2 px-3 text-sm  bg-gray-50 shadow-sm "
+            className="border w-full  outline-none rounded-sm py-2 px-3 text-sm  bg-gray-50 shadow-sm"
           />
           <input
             type="text"
@@ -41,7 +41,7 @@ const Login = ({ setAuthtype }) => {
           </div>
 
           <div className="flex items-center justify-center mt-4">
-            <p className=" text-[#2a6290]  font-medium text-sm">
+            <p className=" text-[#2a6290]  font-medium text-sm cursor-pointer hover:underline hover:underline-offset-2">
               Forgot Pasword?
             </p>
           </div>
