@@ -7,3 +7,17 @@
   font-family: 'Dancing Script', cursive;
 }
 
+.scroll-container {
+    height: calc(100vh - 2rem); /* Adjust this value to set the desired height */
+    overflow-y: auto;
+  }
+
+  /* Hide the scrollbar */
+  .scroll-container::-webkit-scrollbar {
+    width: 0.5rem; /* Set the width of the scrollbar if needed */
+  }
+
+  .scroll-container::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
