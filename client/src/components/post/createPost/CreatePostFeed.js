@@ -24,7 +24,7 @@ const CreatePostFeed = () => {
         className={` w-full  h-36 relative ${
           dark
             ? "bg-[#1A1B1E] text-white border-slate-50"
-            : "bg-white text-black border-[2px]"
+            : "bg-white text-black border"
         }  flex items-center sm:justify-between rounded-xl mt-0`}
       >
         {/* NEW Layout */}
