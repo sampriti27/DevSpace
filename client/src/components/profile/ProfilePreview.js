@@ -30,16 +30,16 @@ const ProfilePreview = ({ name, username }) => {
           />
 
           <div style={{ flex: 1 }}>
-            <Text size="sm" weight={500}>
+            <Text size="md" weight={500}>
               {name}
             </Text>
 
-            <Text color="dimmed" size="xs">
+            <Text color="dimmed" size="sm">
               {username}
             </Text>
           </div>
 
-          <p className="text-xs font-medium hidden lg:block text-[#2596be] ml-4 lg:ml-10 hover:underline hover:underline-offset-2">
+          <p className="text-sm font-medium hidden lg:block text-[#2596be] ml-4 lg:ml-10 hover:underline hover:underline-offset-2">
             view
           </p>
         </Group>

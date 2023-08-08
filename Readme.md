@@ -25,6 +25,15 @@ DevSpace offers the following features:
 - NodeJs/ExpressJS for the backend
 - MongoDB for Database
 
+## <p style="font-weight : 600">Screenshots</p>
+
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+  <img height="150" src="https://res.cloudinary.com/dewu8pifs/image/upload/v1691527657/Screenshot_85_i5xxfz.png" alt="Mobile Responsive" >
+  <img height="150" src="https://res.cloudinary.com/dewu8pifs/image/upload/v1691527657/Screenshot_86_qm4lvi.png" alt="Mobile Responsive" >
+  <img height="150" src="https://res.cloudinary.com/dewu8pifs/image/upload/v1691527660/Screenshot_87_ooionn.png" alt="Mobile Responsive" >
+  <img height="150" src="https://res.cloudinary.com/dewu8pifs/image/upload/v1691527660/Screenshot_88_f1fcea.png" alt="Mobile Responsive" >
+</div>
+
 ## Installation
 
 To install and run this project locally, follow these steps:

@@ -8,6 +8,7 @@ import avatar2 from "../../public/utils/avatar2.png";
 import { useMantineColorScheme } from "@mantine/core";
 import { postImg } from "../../public/utils/post/postImg1.jpg";
 import PostCardFeed from "@/components/post/display/PostCardFeed";
+import SuggestionBox from "@/components/suggestion/SuggestionBox";
 
 const feed = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -25,7 +26,7 @@ const feed = () => {
     },
     postTime: "1d",
     caption:
-      "Instagram is a photo and video sharing social networking service owned by American company Meta Platforms. The app allows users to upload media that can be edited with filters.",
+      " DevSpace provides a dedicated space for developers to connect with their community, showcase their skills, and engage in meaningful discussions,I am really enjoying it",
   };
   return (
     <>
@@ -34,7 +35,7 @@ const feed = () => {
           <Header />
           <section class="text-gray-600 body-font">
             <div class="container px-5 mx-auto flex flex-col md:flex-row items-start md:items-center md:justify-between">
-              <div class="w-full lg:w-3/5 md:pr-16 lg:pr-0 pr-0 mt-4">
+              <div class="w-full xl:w-3/5 md:pr-16 lg:pr-0 pr-0 mt-4">
                 <div className="scroll-container">
                   <CreatePostFeed />
                   <div className="mt-5 px-0 md:px-5 flex flex-col items-center justify-center w-full">
@@ -44,7 +45,7 @@ const feed = () => {
                   </div>
                 </div>
               </div>
-              <div class="hidden md:block relative self-start mt-5 pr-10 lg:pr-20">
+              <div class="hidden xl:block self-start mt-10 px-10 xl:px-20 lg:w-2/5">
                 <ProfilePreview
                   view
                   avatar={avatar}
@@ -52,6 +53,7 @@ const feed = () => {
                   username="@john_Doe"
                   job="Software Engineer"
                 />
+                <SuggestionBox />
               </div>
             </div>
           </section>

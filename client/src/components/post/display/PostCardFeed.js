@@ -121,7 +121,7 @@ const PostCardFeed = ({
         <p className="text-sm">
           Liked by {""}
           <span className="font-semibold">_.sampriti._27</span> and{" "}
-          <span className="font-semibold">others</span>
+          <span className="font-semibold">12 others</span>
         </p>
       </div>
       {caption && (
