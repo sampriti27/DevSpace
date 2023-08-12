@@ -2,18 +2,21 @@ import React from "react";
 import Sidebar from "@/components/sidebar/Sidebar";
 import { useMantineColorScheme } from "@mantine/core";
 import ProfileDetails from "@/components/profile/ProfileDetails";
+import ProfileBody from "@/components/profile/ProfileBody";
 const profile = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
   return (
     <>
       <Sidebar>
-        <main className={`${dark ? "bg-[#25262B]" : "bg-gray-100"} h-screen`}>
-          <section class="text-gray-600 body-font">
-            <div className=" container w-full flex items-center justify-evenly h-[300px]  px-5 mt-0">
+        <main className={`${dark ? "bg-[#1A1B1E]" : "bg-white"} h-screen`}>
+          <section className="text-gray-600 body-font scroll-container">
+            <div className=" container w-full flex items-center justify-evenly h-[300px]  px-5 mt-6 lg:mt-0">
               <ProfileDetails />
             </div>
-            <div className="border-b-[1px] border-gray-400 mx-auto w-2/3 flex items-center justify-center"></div>
+            <div className="mt-8 md:mt-2 md:px-36 px-2">
+              <ProfileBody />
+            </div>
           </section>
         </main>
       </Sidebar>

@@ -23,8 +23,8 @@ const Sidebar = ({ children }) => {
         <div
           className={`relative w-20 lg:w-64 lg:relative h-screen p-4  flex flex-col justify-between pl-4 ${
             dark
-              ? "bg-[#1A1B1E] text-white border-r-slate-50"
-              : "bg-white text-black border-r-[2px]"
+              ? "bg-[#1A1B1E] text-white border-r  border-gray-600"
+              : "bg-white text-black border-r-[1px]"
           }`}
         >
           <div className="logo text-3xl font-bold cursor-pointer px-2 hidden lg:block">

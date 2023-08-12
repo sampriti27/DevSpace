@@ -32,6 +32,8 @@ DevSpace offers the following features:
   <img height="150" src="https://res.cloudinary.com/dewu8pifs/image/upload/v1691527657/Screenshot_86_qm4lvi.png" alt="Mobile Responsive" >
   <img height="150" src="https://res.cloudinary.com/dewu8pifs/image/upload/v1691527660/Screenshot_87_ooionn.png" alt="Mobile Responsive" >
   <img height="150" src="https://res.cloudinary.com/dewu8pifs/image/upload/v1691527660/Screenshot_88_f1fcea.png" alt="Mobile Responsive" >
+  <img height="150" src="https://res.cloudinary.com/dewu8pifs/image/upload/v1691871674/Screenshot_90_saq3uu.png" >
+  <img height="150" src="https://res.cloudinary.com/dewu8pifs/image/upload/v1691871674/Screenshot_91_ga4zoe.png" alt="Mobile Responsive" >
 </div>
 
 ## Installation
