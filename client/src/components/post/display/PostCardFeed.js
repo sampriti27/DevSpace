@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { useMantineColorScheme } from "@mantine/core";
 import { AiOutlineHeart, AiOutlineShareAlt } from "react-icons/ai";
 import { BiBookmark } from "react-icons/bi";
-import { BsSend } from "react-icons/bs";
+import { BsSend, BsBookmarkCheckFill } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
-
+import { RxDotFilled } from "react-icons/rx";
+import { FcLike } from "react-icons/fc";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import PostDetails from "./PostDetails";
 import {
   createStyles,
   Card,
@@ -14,7 +16,9 @@ import {
   Image,
   Avatar,
   Badge,
+  Modal,
   rem,
+  useMantineColorScheme,
 } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
@@ -31,6 +35,7 @@ const useStyles = createStyles((theme) => ({
     // borderRadius: theme.spacing.xs,
     overflow: "hidden",
     marginTop: theme.spacing.xs,
+    width: "100%",
   },
 
   authorInfo: {
@@ -73,6 +78,10 @@ const PostCardFeed = ({
   const toggleCaption = () => {
     setShowFullCaption(!showFullCaption);
   };
+  const [like, setLike] = useState(false);
+  const [save, setSave] = useState(false);
+  const [opened, { open, close }] = useDisclosure(false);
+  const isMobile = useMediaQuery("(max-width: 50em)");
   return (
     <Card padding="xs" radius="xs" className={classes.card}>
       <div className={classes.authorInfo}>
@@ -81,9 +90,11 @@ const PostCardFeed = ({
           radius="xl"
         />
         <div className={classes.authorText}>
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-1 items-center">
             <Text fw={600}>{author.name}</Text>
-            <Text fw={300} fz="sm" c="dimmed">
+
+            <Text fw={400} fz="sm" c="dimmed" className="flex items-center">
+              <RxDotFilled size={"0.75rem"} color="gray" />
               {postTime}
             </Text>
           </div>
@@ -95,16 +106,22 @@ const PostCardFeed = ({
 
       <div className={classes.imageWrapper}>
         <Image
-          src="https://st4.depositphotos.com/4678277/28801/i/450/depositphotos_288019916-stock-photo-profile-side-view-of-his.jpg"
+          src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2ViJTIwZGV2ZWxvcGVyfGVufDB8fDB8fHww&w=1000&q=80"
           alt={title}
         />
       </div>
       <Card.Section className={classes.icons}>
         <Group position="apart" style={{ justifyContent: "space-between" }}>
           <Group spacing="md">
-            <ActionIcon>
-              <FaRegHeart size="1.5rem" />
-            </ActionIcon>
+            {like ? (
+              <ActionIcon>
+                <FcLike size="1.5rem" onClick={() => setLike(!like)} />
+              </ActionIcon>
+            ) : (
+              <ActionIcon>
+                <FaRegHeart size="1.5rem" onClick={() => setLike(!like)} />
+              </ActionIcon>
+            )}
             <ActionIcon>
               <FaRegComment size="1.5rem" />
             </ActionIcon>
@@ -112,9 +129,19 @@ const PostCardFeed = ({
               <BsSend size="1.5rem" />
             </ActionIcon>
           </Group>
-          <ActionIcon>
-            <BiBookmark size="1.5rem" />
-          </ActionIcon>
+          {save ? (
+            <ActionIcon>
+              <BsBookmarkCheckFill
+                size="1.5rem"
+                color={dark ? "gray" : "black"}
+                onClick={() => setSave(!save)}
+              />
+            </ActionIcon>
+          ) : (
+            <ActionIcon>
+              <BiBookmark size="1.5rem" onClick={() => setSave(!save)} />
+            </ActionIcon>
+          )}
         </Group>
       </Card.Section>
       <div className="flex items-center my-2">
@@ -153,7 +180,7 @@ const PostCardFeed = ({
         </div>
       )}
       <div className="flex items-center my-2 cursor-pointer">
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-gray-400" onClick={open}>
           {" "}
           View all <span>5</span> comments
         </p>
@@ -165,6 +192,19 @@ const PostCardFeed = ({
           placeholder="Write a comment..."
         />
       </div>
+      <Modal
+        opened={opened}
+        onClose={close}
+        withCloseButton={false}
+        size="80%"
+        transitionProps={{
+          transition: "fade",
+          duration: 300,
+          timingFunction: "linear",
+        }}
+      >
+        <PostDetails />
+      </Modal>
     </Card>
   );
 };

@@ -27,12 +27,14 @@ const Sidebar = ({ children }) => {
               : "bg-white text-black border-r-[1px]"
           }`}
         >
-          <div className="logo text-3xl font-bold cursor-pointer px-2 hidden lg:block">
-            DevSpace
-          </div>
-          <div className="logo text-2xl font-bold cursor-pointer px-2 block lg:hidden">
-            DS
-          </div>
+          <Link href="/feed">
+            <div className="logo text-3xl font-bold cursor-pointer px-2 hidden lg:block">
+              DevSpace
+            </div>
+            <div className="logo text-2xl font-bold cursor-pointer px-2 block lg:hidden">
+              DS
+            </div>
+          </Link>
           <div className="flex flex-col justify-between h-[600px]">
             <div className="flex flex-col items-start gap-5 mb-20">
               <Link href="/feed">
@@ -169,13 +171,15 @@ const Sidebar = ({ children }) => {
                 : "bg-white text-black border-t-[2px]"
             }  flex  px-8 items-center justify-between`}
           >
-            <div
-              className={`flex items-center w-12 h-12 justify-center${
-                dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
-              } rounded-full cursor-pointer`}
-            >
-              <AiFillHome size={28} />
-            </div>
+            <Link href="/feed">
+              <div
+                className={`flex items-center w-12 h-12 justify-center${
+                  dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
+                } rounded-full cursor-pointer`}
+              >
+                <AiFillHome size={28} />
+              </div>
+            </Link>
             <div
               className={`flex items-center w-12 h-12 justify-center${
                 dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
@@ -190,13 +194,15 @@ const Sidebar = ({ children }) => {
             >
               <FiPlusSquare size={28} />
             </div>
-            <div
-              className={`flex items-center w-12 h-12 justify-center${
-                dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
-              } rounded-full cursor-pointer`}
-            >
-              <CgProfile size={28} />
-            </div>
+            <Link href="/profile">
+              <div
+                className={`flex items-center w-12 h-12 justify-center${
+                  dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
+                } rounded-full cursor-pointer`}
+              >
+                <CgProfile size={28} />
+              </div>
+            </Link>
             <Menu shadow="md" width={200}>
               <Menu.Target>
                 <div

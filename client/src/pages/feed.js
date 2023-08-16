@@ -6,6 +6,7 @@ import ProfilePreview from "@/components/profile/ProfilePreview";
 import avatar from "../../public/utils/avatar.jpeg";
 import avatar2 from "../../public/utils/avatar2.png";
 import { useMantineColorScheme } from "@mantine/core";
+
 import { postImg } from "../../public/utils/post/postImg1.jpg";
 import PostCardFeed from "@/components/post/display/PostCardFeed";
 import SuggestionBox from "@/components/suggestion/SuggestionBox";
