@@ -19,6 +19,8 @@ import {
   Modal,
   rem,
   useMantineColorScheme,
+  ScrollArea,
+  Button,
 } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
@@ -81,7 +83,44 @@ const PostCardFeed = ({
   const [like, setLike] = useState(false);
   const [save, setSave] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
-  const isMobile = useMediaQuery("(max-width: 50em)");
+  const [openLikeModal, setOpenLikeModal] = useState(false);
+
+  const handleCloseLikeModal = () => {
+    setOpenLikeModal(false);
+  };
+  const content = Array(100)
+    .fill(0)
+    .map((_, index) => (
+      <div key={index} className="flex items-center justify-between mb-4">
+        <div className={classes.authorInfo}>
+          <Avatar
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-xnGLZJFli6FRyXSlm8-QnpJb9hh30HffEA&usqp=CAU"
+            radius="xl"
+          />
+          <div className={classes.authorText}>
+            <div className="flex gap-1 items-center text-xs">
+              <Text fw={600}>Allen._23</Text>
+
+              <Text
+                fw={400}
+                fz="sm"
+                c="dimmed"
+                className="flex items-center"
+              ></Text>
+            </div>
+            <Text fz="xs" c="dimmed">
+              Ash Allen
+            </Text>
+          </div>
+        </div>
+        <div>
+          <Button variant="filled" size="xs" className=" bg-[#0095f6]">
+            Follow
+          </Button>
+        </div>
+      </div>
+    ));
+
   return (
     <Card padding="xs" radius="xs" className={classes.card}>
       <div className={classes.authorInfo}>
@@ -144,13 +183,17 @@ const PostCardFeed = ({
           )}
         </Group>
       </Card.Section>
-      <div className="flex items-center my-2">
+      <div
+        className="flex items-center my-2 cursor-pointer"
+        onClick={() => setOpenLikeModal(true)}
+      >
         <p className="text-sm">
           Liked by {""}
           <span className="font-semibold">_.sampriti._27</span> and{" "}
           <span className="font-semibold">12 others</span>
         </p>
       </div>
+
       {caption && (
         <div className="flex items-center">
           <p className="">
@@ -204,6 +247,31 @@ const PostCardFeed = ({
         }}
       >
         <PostDetails />
+      </Modal>
+      <Modal
+        opened={openLikeModal}
+        onClose={handleCloseLikeModal}
+        // closeOnClickOutside={true}
+        size="sm"
+        withCloseButton={false}
+        styles={{
+          body: {
+            display: "flex",
+            flexDirection: "column",
+            maxHeight: "300px",
+          },
+        }}
+      >
+        <div className="font-semibold m-auto">Likes</div>
+
+        <ScrollArea
+          scrollY
+          maxHeight="calc(100% - 60px)" // Subtract the header's height from the modal's height
+          className="mt-4"
+          style={{ overflowY: "auto" }}
+        >
+          {content}
+        </ScrollArea>
       </Modal>
     </Card>
   );

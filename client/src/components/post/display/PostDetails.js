@@ -64,7 +64,7 @@ const PostDetails = () => {
                 />
                 <div className={classes.authorText}>
                   <div className="flex gap-1 items-center">
-                    <Text fw={600}>@John_Doe</Text>
+                    <Text fw={600}>John_Doe</Text>
 
                     <Text
                       fw={400}
@@ -123,7 +123,7 @@ const PostDetails = () => {
                 />
                 <div>
                   <p className="text-sm">
-                    <span className="font-semibold text-sm">@Allen._23</span>{" "}
+                    <span className="font-semibold text-sm">Allen._23</span>{" "}
                     &nbsp; Great Going bro !
                   </p>
                   <Text

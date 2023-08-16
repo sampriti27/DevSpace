@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Image } from "@mantine/core";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import PostDetails from "./PostDetails";
 
 const PostGridDisplay = () => {
