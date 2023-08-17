@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
 //middleware
 app.use(express.json());
+app.use(cors());
 
 // error handler
 const asyncHandler = require("express-async-handler");
@@ -35,6 +37,8 @@ app.use("/api/v1/users", userRoutes);
 
 //post management API endpoints
 app.use("/api/v1/users/post", postRoutes);
+
+app.use(errorHandler);
 
 // server
 app.listen(PORT, () => {

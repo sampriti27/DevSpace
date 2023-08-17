@@ -13,16 +13,20 @@ const register = asyncHandler(async (req, res) => {
   // validate
   if (!name || !email || !username || !password || !cPassword) {
     res.status(400);
-
     throw new Error("Please fill all the fields!");
   }
-
   // check for existing users
   const userAvailable = await User.findOne({ email });
   // check if username is already taken
   const invalidUsername = await User.findOne({ username });
 
   if (userAvailable) {
+    res.status(400);
+
+    throw new Error("Email or username already exist!");
+  }
+
+  if (invalidUsername) {
     res.status(400);
 
     throw new Error("Email or username already exist!");
@@ -49,8 +53,7 @@ const register = asyncHandler(async (req, res) => {
 
     console.log(`New user created ${newUser}`);
     if (newUser) {
-      res.status(201).json(newUser);
-      res.status(200).json({ message: "new user registered successfully!" });
+      res.status(201).json({ message: "new user registered successfully!" });
     } else {
       res.status(400);
 

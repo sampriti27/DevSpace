@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { useState } from "react";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App({ Component, pageProps }) {
   const [colorScheme, setColorScheme] = useState("light");

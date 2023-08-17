@@ -45,14 +45,23 @@ const PostDetails = () => {
   const [save, setSave] = useState(false);
   const dark = colorScheme === "dark";
   return (
-    <div className={`flex flex-col sm:flex-row items-start gap-2`}>
-      <div className=" flex-1">
-        <Image
-          src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2ViJTIwZGV2ZWxvcGVyfGVufDB8fDB8fHww&w=1000&q=80"
-          alt=""
-        />
+    <div
+      className={`flex flex-col sm:flex-row items-start gap-2 h-full overflow-hidden`}
+    >
+      {/* div 1 starts  */}
+      <div className=" flex-1 h-full ">
+        <div className="max-h-full aspect-w-1 aspect-h-1 ">
+          <Image
+            src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2ViJTIwZGV2ZWxvcGVyfGVufDB8fDB8fHww&w=1000&q=80"
+            alt=""
+            height={600}
+            // fit="contain"
+          />
+        </div>
       </div>
-      <div className="flex-1">
+      {/* div 1 ends  */}
+      {/* div 2 starts */}
+      <div className="flex-1 flex flex-col justify-between h-[600px] ">
         {/* header starts */}
         <div className="">
           <div className="flex items-center justify-between ">
@@ -82,190 +91,206 @@ const PostDetails = () => {
             <BsThreeDots />
           </div>
           <div className="w-full px-2 mt-2 border border-gray-100 h-0"></div>
-        </div>
-        {/* header ends */}
-        <div className="flex flex-col justify-between h-full">
-          <div>
-            {/* caption */}
-            <div className="mt-4">
-              <div className="flex items-start gap-3">
-                <Avatar
-                  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
-                  radius="xl"
-                />
-                <div>
-                  <p className="text-sm">
-                    <span className="font-semibold text-sm">@John_Doe</span>{" "}
-                    &nbsp; 😎😎😎 DevSpace provides a dedicated space for
-                    developers to connect with their community, showcase their
-                    skills, and engage in meaningful discussions,I am really
-                    enjoying it
-                  </p>
-                  <Text
-                    fw={400}
-                    fz="xs"
-                    c="dimmed"
-                    className="flex items-center mt-2"
-                  >
-                    1d
-                  </Text>
+          {/* header ends */}
+          <div className="flex flex-col justify-between mt-4">
+            <div>
+              {/* caption */}
+              <div>
+                <div className="flex items-start gap-3">
+                  <Avatar
+                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+                    radius="xl"
+                  />
+                  <div>
+                    <p className="text-sm">
+                      <span className="font-semibold text-sm">@John_Doe</span>{" "}
+                      &nbsp; 😎😎😎 DevSpace provides a dedicated space for
+                      developers to connect with their community, showcase their
+                      skills, and engage in meaningful discussions,I am really
+                      enjoying it
+                    </p>
+                    <Text
+                      fw={400}
+                      fz="xs"
+                      c="dimmed"
+                      className="flex items-center mt-2"
+                    >
+                      1d
+                    </Text>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Comments  */}
+              {/* Comments  */}
 
-            <div className="mt-2">
-              <div className="flex items-start gap-3">
-                <Avatar
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-xnGLZJFli6FRyXSlm8-QnpJb9hh30HffEA&usqp=CAU"
-                  radius="xl"
-                />
-                <div>
-                  <p className="text-sm">
-                    <span className="font-semibold text-sm">Allen._23</span>{" "}
-                    &nbsp; Great Going bro !
-                  </p>
-                  <Text
-                    fw={400}
-                    fz="xs"
-                    c="dimmed"
-                    className="flex items-center mt-2"
-                  >
-                    5h
-                  </Text>
+              <div className="mt-2">
+                <div className="flex items-start gap-3">
+                  <Avatar
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-xnGLZJFli6FRyXSlm8-QnpJb9hh30HffEA&usqp=CAU"
+                    radius="xl"
+                  />
+                  <div>
+                    <p className="text-sm">
+                      <span className="font-semibold text-sm">Allen._23</span>{" "}
+                      &nbsp; Great Going bro !
+                    </p>
+                    <Text
+                      fw={400}
+                      fz="xs"
+                      c="dimmed"
+                      className="flex items-center mt-2"
+                    >
+                      5h
+                    </Text>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-2">
-              <div className="flex items-start gap-3">
-                <Avatar
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-xnGLZJFli6FRyXSlm8-QnpJb9hh30HffEA&usqp=CAU"
-                  radius="xl"
-                />
-                <div>
-                  <p className="text-sm">
-                    <span className="font-semibold text-sm">@Allen._23</span>{" "}
-                    &nbsp; Great Going bro !
-                  </p>
-                  <Text
-                    fw={400}
-                    fz="xs"
-                    c="dimmed"
-                    className="flex items-center mt-2"
-                  >
-                    5h
-                  </Text>
+              <div className="mt-2">
+                <div className="flex items-start gap-3">
+                  <Avatar
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-xnGLZJFli6FRyXSlm8-QnpJb9hh30HffEA&usqp=CAU"
+                    radius="xl"
+                  />
+                  <div>
+                    <p className="text-sm">
+                      <span className="font-semibold text-sm">Allen._23</span>{" "}
+                      &nbsp; Great Going bro !
+                    </p>
+                    <Text
+                      fw={400}
+                      fz="xs"
+                      c="dimmed"
+                      className="flex items-center mt-2"
+                    >
+                      5h
+                    </Text>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-2">
-              <div className="flex items-start gap-3">
-                <Avatar
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-xnGLZJFli6FRyXSlm8-QnpJb9hh30HffEA&usqp=CAU"
-                  radius="xl"
-                />
-                <div>
-                  <p className="text-sm">
-                    <span className="font-semibold text-sm">@Allen._23</span>{" "}
-                    &nbsp; Great Going bro !
-                  </p>
-                  <Text
-                    fw={400}
-                    fz="xs"
-                    c="dimmed"
-                    className="flex items-center mt-2"
-                  >
-                    5h
-                  </Text>
+
+              <div className="mt-2">
+                <div className="flex items-start gap-3">
+                  <Avatar
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-xnGLZJFli6FRyXSlm8-QnpJb9hh30HffEA&usqp=CAU"
+                    radius="xl"
+                  />
+                  <div>
+                    <p className="text-sm">
+                      <span className="font-semibold text-sm">@Allen._23</span>{" "}
+                      &nbsp; Great Going bro !
+                    </p>
+                    <Text
+                      fw={400}
+                      fz="xs"
+                      c="dimmed"
+                      className="flex items-center mt-2"
+                    >
+                      5h
+                    </Text>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-2">
-              <div className="flex items-start gap-3">
-                <Avatar
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-xnGLZJFli6FRyXSlm8-QnpJb9hh30HffEA&usqp=CAU"
-                  radius="xl"
-                />
-                <div>
-                  <p className="text-sm">
-                    <span className="font-semibold text-sm">@Allen._23</span>{" "}
-                    &nbsp; Great Going bro !
-                  </p>
-                  <Text
-                    fw={400}
-                    fz="xs"
-                    c="dimmed"
-                    className="flex items-center mt-2"
-                  >
-                    5h
-                  </Text>
+              <div className="mt-2">
+                <div className="flex items-start gap-3">
+                  <Avatar
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-xnGLZJFli6FRyXSlm8-QnpJb9hh30HffEA&usqp=CAU"
+                    radius="xl"
+                  />
+                  <div>
+                    <p className="text-sm">
+                      <span className="font-semibold text-sm">@Allen._23</span>{" "}
+                      &nbsp; Great Going bro !
+                    </p>
+                    <Text
+                      fw={400}
+                      fz="xs"
+                      c="dimmed"
+                      className="flex items-center mt-2"
+                    >
+                      5h
+                    </Text>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-2">
+                <div className="flex items-start gap-3">
+                  <Avatar
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-xnGLZJFli6FRyXSlm8-QnpJb9hh30HffEA&usqp=CAU"
+                    radius="xl"
+                  />
+                  <div>
+                    <p className="text-sm">
+                      <span className="font-semibold text-sm">@Allen._23</span>{" "}
+                      &nbsp; Great Going bro !
+                    </p>
+                    <Text
+                      fw={400}
+                      fz="xs"
+                      c="dimmed"
+                      className="flex items-center mt-2"
+                    >
+                      5h
+                    </Text>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* icons and add comment section  */}
-          <div className="">
-            <div className={classes.icons}>
-              <Group
-                position="apart"
-                style={{ justifyContent: "space-between" }}
-              >
-                <Group spacing="md">
-                  {like ? (
-                    <ActionIcon>
-                      <FcLike size="1.5rem" onClick={() => setLike(!like)} />
-                    </ActionIcon>
-                  ) : (
-                    <ActionIcon>
-                      <FaRegHeart
-                        size="1.5rem"
-                        onClick={() => setLike(!like)}
-                      />
-                    </ActionIcon>
-                  )}
+        {/* icons and add comment section  */}
+        <div className="relative bottom-0  border-t-[1px]">
+          <div className={classes.icons}>
+            <Group position="apart" style={{ justifyContent: "space-between" }}>
+              <Group spacing="md">
+                {like ? (
                   <ActionIcon>
-                    <FaRegComment size="1.5rem" />
-                  </ActionIcon>
-                  <ActionIcon>
-                    <BsSend size="1.5rem" />
-                  </ActionIcon>
-                </Group>
-                {save ? (
-                  <ActionIcon>
-                    <BsBookmarkCheckFill
-                      size="1.5rem"
-                      color={dark ? "gray" : "black"}
-                      onClick={() => setSave(!save)}
-                    />
+                    <FcLike size="1.5rem" onClick={() => setLike(!like)} />
                   </ActionIcon>
                 ) : (
                   <ActionIcon>
-                    <BiBookmark size="1.5rem" onClick={() => setSave(!save)} />
+                    <FaRegHeart size="1.5rem" onClick={() => setLike(!like)} />
                   </ActionIcon>
                 )}
+                <ActionIcon>
+                  <FaRegComment size="1.5rem" />
+                </ActionIcon>
+                <ActionIcon>
+                  <BsSend size="1.5rem" />
+                </ActionIcon>
               </Group>
-            </div>
-            <div className="flex items-center px-6">
-              <p className="text-sm">
-                Liked by {""}
-                <span className="font-semibold">_.sampriti._27</span> and{" "}
-                <span className="font-semibold">12 others</span>
-              </p>
-            </div>
-            <div
-              className={`w-full ${dark ? "border-none" : "border-b-2"} mt-5`}
-            >
-              <input
-                type="text"
-                className={classes.commentInput}
-                placeholder="Write a comment..."
-              />
-            </div>
+              {save ? (
+                <ActionIcon>
+                  <BsBookmarkCheckFill
+                    size="1.5rem"
+                    color={dark ? "gray" : "black"}
+                    onClick={() => setSave(!save)}
+                  />
+                </ActionIcon>
+              ) : (
+                <ActionIcon>
+                  <BiBookmark size="1.5rem" onClick={() => setSave(!save)} />
+                </ActionIcon>
+              )}
+            </Group>
+          </div>
+          <div className="flex items-center px-6">
+            <p className="text-sm">
+              Liked by {""}
+              <span className="font-semibold">_.sampriti._27</span> and{" "}
+              <span className="font-semibold">12 others</span>
+            </p>
+          </div>
+          <div className={`w-full ${dark ? "border-none" : "border-b-2"} mt-5`}>
+            <input
+              type="text"
+              className={classes.commentInput}
+              placeholder="Write a comment..."
+            />
           </div>
         </div>
       </div>
+      {/* div 2 ends  */}
     </div>
   );
 };

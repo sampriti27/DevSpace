@@ -245,6 +245,7 @@ const PostCardFeed = ({
           duration: 300,
           timingFunction: "linear",
         }}
+        style={{ maxHeight: "90vh", overflow: "hidden" }}
       >
         <PostDetails />
       </Modal>
