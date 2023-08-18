@@ -1,7 +1,54 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { useRouter } from "next/router";
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
+import { BeatLoader } from "react-spinners";
+import { toast } from "react-toastify";
+import { ApplicationContext } from "@/context/ApplicationContext";
 
 const Login = ({ setAuthtype }) => {
+  const { userData, setUserData } = useContext(ApplicationContext);
+  const [loginLoader, setLoginLoader] = useState(false);
+  const [loginData, setLoginData] = useState({
+    username: "",
+    password: "",
+  });
+  const router = useRouter();
+  const handleLoginData = (e) => {
+    const { name, value } = e.target;
+
+    setLoginData({
+      ...loginData,
+      [name]: value,
+    });
+  };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    // console.log(loginData);
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    setLoginLoader(true);
+    try {
+      const { data } = await axios.post(
+        "http://localhost:8000/api/v1/users/signin",
+        loginData,
+        config
+      );
+
+      console.log(data);
+      setUserData(data.user);
+      localStorage.setItem("token", JSON.stringify(data.accessToken));
+      setLoginLoader(false);
+      router.push("/profile");
+    } catch (error) {
+      console.log(error);
+      toast.warning(error.response?.data.message);
+      setLoginLoader(false);
+    }
+  };
   return (
     <div className="flex flex-col justify-center items-center shadow-sm">
       <div className="border flex flex-col items-center w-96">
@@ -12,19 +59,26 @@ const Login = ({ setAuthtype }) => {
         <div className="p-5 mt-5 flex flex-col items-center w-72">
           <input
             type="text"
-            placeholder="Enter your email"
+            placeholder="Enter your username"
+            name="username"
+            value={loginData.username}
+            onChange={handleLoginData}
             className="border w-full  outline-none rounded-sm py-2 px-3 text-sm  bg-gray-50 shadow-sm"
           />
           <input
-            type="text"
+            type="password"
             placeholder="Password"
+            name="password"
+            value={loginData.password}
+            onChange={handleLoginData}
             className="mt-1 border w-full  outline-none rounded-sm py-2 px-3 text-sm bg-gray-50 shadow-sm "
           />
           <button
             type="button"
             className="mt-3 bg-[#4cb5f9] text-white w-full  rounded-md py-2 px-3 text-sm font-semibold "
+            onClick={handleLogin}
           >
-            Log in
+            {loginLoader ? <BeatLoader color="white" /> : <span>Log in</span>}
           </button>
 
           <div className="flex items-center mt-2">

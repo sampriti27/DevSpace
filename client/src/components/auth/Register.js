@@ -56,18 +56,6 @@ const Register = ({ setAuthtype }) => {
   };
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
       <div className="flex flex-col justify-center items-center shadow-sm mt-32">
         <div className="border flex flex-col items-center w-96">
           <div className="logo text-5xl font-semibold p-5 mt-5 cursor-pointer">

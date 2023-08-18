@@ -3,7 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { AiFillHome, AiOutlineHeart } from "react-icons/ai";
 import { FiSearch, FiPlusSquare } from "react-icons/fi";
 import { HiMenu } from "react-icons/hi";
-
+import { useRouter } from "next/router";
 import { BiBookmark } from "react-icons/bi";
 import { BsMoon, BsSun } from "react-icons/bs";
 import { CiSettings, CiLogout } from "react-icons/ci";
@@ -13,8 +13,13 @@ import { Menu, Button, Text } from "@mantine/core";
 import { ActionIcon, useMantineColorScheme } from "@mantine/core";
 
 const Sidebar = ({ children }) => {
+  const router = useRouter();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
+  const handleSignout = () => {
+    localStorage.removeItem("token");
+    router.push("/");
+  };
 
   return (
     <>
@@ -149,7 +154,12 @@ const Sidebar = ({ children }) => {
 
                   <Menu.Divider />
 
-                  <Menu.Item icon={<CiLogout size={14} />}>Logout</Menu.Item>
+                  <Menu.Item
+                    icon={<CiLogout size={14} />}
+                    onClick={handleSignout}
+                  >
+                    Logout
+                  </Menu.Item>
                 </Menu.Dropdown>
               </Menu>
             </div>
