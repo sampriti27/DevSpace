@@ -133,6 +133,28 @@ const currentUser = asyncHandler(async (req, res) => {
     res.json(error);
   }
 });
+//Desc update profile
+//@route PUT /api/user/
+//@access protected
+const updateProfile = asyncHandler(async (req, res) => {
+  const userId = req.params.id;
+  const updatedData = req.body;
+
+  User.findByIdAndUpdate(userId, updatedData, { new: true })
+    .then((updatedUser) => {
+      updatedUser.password = undefined;
+      updatedUser.cPassword = undefined;
+      res.status(200).json({ message: "Profile details Updated", updatedUser }); // Respond with the updated user data
+    })
+    .catch((error) => {
+      res
+        .status(500)
+        .json(
+          { error: "An error occurred while updating the profile." },
+          error
+        );
+    });
+});
 
 //Desc logout user
 //@route GET /api/user/signout
@@ -146,4 +168,4 @@ const signout = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { register, signin, currentUser, signout };
+module.exports = { register, signin, currentUser, updateProfile, signout };

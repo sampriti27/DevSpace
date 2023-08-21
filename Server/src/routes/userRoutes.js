@@ -7,6 +7,7 @@ const {
   register,
   signin,
   currentUser,
+  updateProfile,
   signout,
 } = require("../controllers/user/userController");
 
@@ -21,6 +22,9 @@ router.route("/signin").post(signin);
 
 // current user route
 router.route("/").get(isVerifiedUser, currentUser);
+
+// update profile route
+router.route("/update-profile/:id").put(isVerifiedUser, updateProfile);
 
 // logout route
 router.route("/signout").get(signout);

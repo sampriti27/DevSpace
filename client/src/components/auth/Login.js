@@ -7,8 +7,8 @@ import { toast } from "react-toastify";
 import { ApplicationContext } from "@/context/ApplicationContext";
 
 const Login = ({ setAuthtype }) => {
-  const { userData, setUserData } = useContext(ApplicationContext);
-  const [loginLoader, setLoginLoader] = useState(false);
+  const { userData, setUserData, loader, setLoader } =
+    useContext(ApplicationContext);
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
@@ -30,7 +30,7 @@ const Login = ({ setAuthtype }) => {
         "Content-type": "application/json",
       },
     };
-    setLoginLoader(true);
+    setLoader(true);
     try {
       const { data } = await axios.post(
         "http://localhost:8000/api/v1/users/signin",
@@ -41,12 +41,12 @@ const Login = ({ setAuthtype }) => {
       console.log(data);
       setUserData(data.user);
       localStorage.setItem("token", JSON.stringify(data.accessToken));
-      setLoginLoader(false);
+      setLoader(false);
       router.push("/profile");
     } catch (error) {
       console.log(error);
       toast.warning(error.response?.data.message);
-      setLoginLoader(false);
+      setLoader(false);
     }
   };
   return (
@@ -78,7 +78,7 @@ const Login = ({ setAuthtype }) => {
             className="mt-3 bg-[#4cb5f9] text-white w-full  rounded-md py-2 px-3 text-sm font-semibold "
             onClick={handleLogin}
           >
-            {loginLoader ? <BeatLoader color="white" /> : <span>Log in</span>}
+            {loader ? <BeatLoader color="white" /> : <span>Log in</span>}
           </button>
 
           <div className="flex items-center mt-2">

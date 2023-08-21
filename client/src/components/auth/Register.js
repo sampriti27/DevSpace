@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { BeatLoader } from "react-spinners";
 import { ToastContainer, toast } from "react-toastify";
+import { ApplicationContext } from "@/context/ApplicationContext";
 
 const Register = ({ setAuthtype }) => {
   const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ const Register = ({ setAuthtype }) => {
   });
 
   // loader
-  const [authLoader, setAuthLoader] = useState(false);
+  const { loader, setLoader } = useContext(ApplicationContext);
   // set the collected data
   const handleInputChange = (e) => {
     // console.log(e.target);
@@ -28,7 +29,7 @@ const Register = ({ setAuthtype }) => {
   };
   const handleRegister = async (e) => {
     e.preventDefault();
-    setAuthLoader(true);
+    setLoader(true);
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -43,7 +44,7 @@ const Register = ({ setAuthtype }) => {
       );
 
       console.log(data);
-      setAuthLoader(false);
+      setLoader(false);
       toast.success(data.message);
       setAuthtype("login");
       // Clear the form fields
@@ -51,7 +52,7 @@ const Register = ({ setAuthtype }) => {
     } catch (error) {
       // console.log(error);
       toast.warning(error.response?.data.message);
-      setAuthLoader(false);
+      setLoader(false);
     }
   };
   return (
@@ -130,11 +131,7 @@ const Register = ({ setAuthtype }) => {
               className="mt-3 bg-[#4cb5f9] text-white w-full  rounded-md py-2 px-3 text-sm font-semibold "
               onClick={handleRegister}
             >
-              {authLoader ? (
-                <BeatLoader color="white" />
-              ) : (
-                <span> Sign Up</span>
-              )}
+              {loader ? <BeatLoader color="white" /> : <span> Sign Up</span>}
             </button>
           </div>
 

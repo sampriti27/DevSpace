@@ -1,8 +1,17 @@
 import React from "react";
-import { useMantineColorScheme, Button, Text } from "@mantine/core";
+import EditProfile from "./EditProfile";
+import {
+  useMantineColorScheme,
+  Drawer,
+  Button,
+  Group,
+  Text,
+} from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
 const ProfileInfo = ({ profileData }) => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const [opened, { open, close }] = useDisclosure(false);
   const dark = colorScheme === "dark";
   const items = profileData.stats.map((stat) => (
     <div key={stat.label} className="flex items-center gap-2">
@@ -29,6 +38,7 @@ const ProfileInfo = ({ profileData }) => {
               className={`${
                 dark ? "bg-[#363636] hover:bg-[#313131]" : "bg-gray-100"
               }`}
+              onClick={open}
             >
               Edit Profile
             </Button>
@@ -69,6 +79,16 @@ const ProfileInfo = ({ profileData }) => {
           </p>
         </div>
       </div>
+      <Drawer
+        opened={opened}
+        onClose={close}
+        overlayProps={{ opacity: 0.5, blur: 4 }}
+        position="right"
+        size="lg"
+        withCloseButton={false}
+      >
+        <EditProfile />
+      </Drawer>
     </>
   );
 };

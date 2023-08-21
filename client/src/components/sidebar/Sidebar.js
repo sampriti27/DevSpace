@@ -20,7 +20,9 @@ const Sidebar = ({ children }) => {
     localStorage.removeItem("token");
     router.push("/");
   };
-
+  const handleTheme = () => {
+    toggleColorScheme();
+  };
   return (
     <>
       {/* Desktop and laptop view  */}
@@ -235,7 +237,7 @@ const Sidebar = ({ children }) => {
                 <Menu.Item icon={<CiSettings size={14} />}>Settings</Menu.Item>
                 <Menu.Item icon={<BiBookmark size={14} />}>Saved</Menu.Item>
                 <Menu.Item
-                  onClick={() => toggleColorScheme()}
+                  onClick={handleTheme}
                   icon={dark ? <BsSun size={14} /> : <BsMoon size={14} />}
                 >
                   Switch Appearance
