@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import EditProfile from "./EditProfile";
 import {
   useMantineColorScheme,
@@ -8,8 +8,10 @@ import {
   Text,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { ApplicationContext } from "@/context/ApplicationContext";
 
 const ProfileInfo = ({ profileData }) => {
+  const { userData } = useContext(ApplicationContext);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const [opened, { open, close }] = useDisclosure(false);
   const dark = colorScheme === "dark";
@@ -28,7 +30,7 @@ const ProfileInfo = ({ profileData }) => {
         } flex flex-col items-start`}
       >
         <div className="flex items-center justify-start gap-3">
-          <div className={`text-lg font-`}>{profileData.username} </div>
+          <div className={`text-lg font-`}>{userData?.username} </div>
           <div>
             {" "}
             <Button
@@ -62,7 +64,7 @@ const ProfileInfo = ({ profileData }) => {
         </div>
         <div className="mt-4 flex flex-col">
           <p className="text-base font-medium tracking-tight">
-            {profileData.name}
+            {userData?.name}
           </p>
           <span
             className={`${

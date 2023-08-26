@@ -1,19 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { ApplicationContext } from "@/context/ApplicationContext";
+import Footer from "../footer/Footer";
 
 const Login = ({ setAuthtype }) => {
+  useEffect(() => {
+    document.title = "DevSpace | Login";
+  });
+
+  const router = useRouter();
   const { userData, setUserData, loader, setLoader } =
     useContext(ApplicationContext);
+
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
-  const router = useRouter();
+
   const handleLoginData = (e) => {
     const { name, value } = e.target;
 
@@ -22,6 +29,7 @@ const Login = ({ setAuthtype }) => {
       [name]: value,
     });
   };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     // console.log(loginData);
@@ -33,7 +41,7 @@ const Login = ({ setAuthtype }) => {
     setLoader(true);
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/users/signin",
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/signin`,
         loginData,
         config
       );
@@ -49,6 +57,7 @@ const Login = ({ setAuthtype }) => {
       setLoader(false);
     }
   };
+
   return (
     <div className="flex flex-col justify-center items-center shadow-sm">
       <div className="border flex flex-col items-center w-96">
@@ -63,7 +72,7 @@ const Login = ({ setAuthtype }) => {
             name="username"
             value={loginData.username}
             onChange={handleLoginData}
-            className="border w-full  outline-none rounded-sm py-2 px-3 text-sm  bg-gray-50 shadow-sm"
+            className="border w-full outline-none rounded-sm py-2 px-3 text-sm  bg-gray-50 shadow-sm"
           />
           <input
             type="password"
@@ -82,7 +91,7 @@ const Login = ({ setAuthtype }) => {
           </button>
 
           <div className="flex items-center mt-2">
-            <div class="border-b-2 border-gray-200 mt-2 w-24"></div>
+            <div className="border-b-2 border-gray-200 mt-2 w-24"></div>
             <p className="mx-5 text-gray-400 font-medium text-base">Or</p>
             <div class="border-b-2 border-gray-200 mt-2 w-24"></div>
           </div>
@@ -111,6 +120,10 @@ const Login = ({ setAuthtype }) => {
             Sign up
           </span>
         </p>
+      </div>
+
+      <div className="mt-14">
+        <Footer />
       </div>
     </div>
   );

@@ -3,10 +3,15 @@ import React, { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { BeatLoader } from "react-spinners";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { ApplicationContext } from "@/context/ApplicationContext";
+import Footer from "../footer/Footer";
 
 const Register = ({ setAuthtype }) => {
+  useEffect(() => {
+    document.title = "DevSpace | Sign Up";
+  });
+
   const [formData, setFormData] = useState({
     email: "",
     name: "",
@@ -14,9 +19,8 @@ const Register = ({ setAuthtype }) => {
     password: "",
     cPassword: "",
   });
-
-  // loader
   const { loader, setLoader } = useContext(ApplicationContext);
+
   // set the collected data
   const handleInputChange = (e) => {
     // console.log(e.target);
@@ -27,6 +31,7 @@ const Register = ({ setAuthtype }) => {
       [name]: value,
     });
   };
+
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoader(true);
@@ -55,14 +60,15 @@ const Register = ({ setAuthtype }) => {
       setLoader(false);
     }
   };
+
   return (
     <>
-      <div className="flex flex-col justify-center items-center shadow-sm mt-32">
+      <div className="flex flex-col justify-center items-center shadow-sm mt-10">
         <div className="border flex flex-col items-center w-96">
           <div className="logo text-5xl font-semibold p-5 mt-5 cursor-pointer">
             DevSpace
           </div>
-          <div className="mt-3 px-4 py-2">
+          <div className="px-4">
             <p className=" text-base font-medium text-gray-500 tracking-tight text-center">
               Sign up to connect with dev community and showcase your skills.
             </p>
@@ -80,7 +86,7 @@ const Register = ({ setAuthtype }) => {
             <div class="border-b-2 border-gray-200 mt-2 w-24"></div>
           </div>
 
-          <div className="p-5 mt-5 flex flex-col items-center w-72">
+          <div className="p-5 flex flex-col items-center w-72">
             <input
               type="email"
               id="email"
@@ -135,7 +141,7 @@ const Register = ({ setAuthtype }) => {
             </button>
           </div>
 
-          <div className="flex items-center mt-4 mb-2 px-4 py-2">
+          <div className="flex items-center mb-2 px-4 pb-2">
             <p className="text-gray-400 text-xs tracking-tight text-center">
               By signing up, you agree to our{" "}
               <span className=" text-[#2a6290]">Terms</span>,{" "}
@@ -154,6 +160,10 @@ const Register = ({ setAuthtype }) => {
               Log in
             </span>
           </p>
+        </div>
+
+        <div className="mt-12 mb-9">
+          <Footer />
         </div>
       </div>
     </>

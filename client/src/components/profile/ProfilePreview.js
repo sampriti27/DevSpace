@@ -5,8 +5,9 @@ import {
   Text,
   createStyles,
 } from "@mantine/core";
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
+import { ApplicationContext } from "@/context/ApplicationContext";
 
 const useStyles = createStyles((theme) => ({
   user: {
@@ -19,23 +20,21 @@ const useStyles = createStyles((theme) => ({
 
 const ProfilePreview = ({ name, username }) => {
   const { classes } = useStyles();
+  const { userData } = useContext(ApplicationContext);
 
   return (
     <Link href="/profile">
       <UnstyledButton className={classes.user}>
         <Group spacing="xs" align="center">
-          <Avatar
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
-            radius="xl"
-          />
+          <Avatar src={userData?.photo} radius="xl" />
 
           <div style={{ flex: 1 }}>
             <Text size="md" weight={500}>
-              {name}
+              {userData?.name}
             </Text>
 
             <Text color="dimmed" size="sm">
-              {username}
+              {userData?.username}
             </Text>
           </div>
 

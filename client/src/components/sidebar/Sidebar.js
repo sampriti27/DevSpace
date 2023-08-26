@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { CgProfile } from "react-icons/cg";
+import React, { useContext, useEffect } from "react";
 import { AiFillHome, AiOutlineHeart } from "react-icons/ai";
 import { FiSearch, FiPlusSquare } from "react-icons/fi";
 import { HiMenu } from "react-icons/hi";
@@ -8,21 +7,25 @@ import { BiBookmark } from "react-icons/bi";
 import { BsMoon, BsSun } from "react-icons/bs";
 import { CiSettings, CiLogout } from "react-icons/ci";
 import Link from "next/link";
-
-import { Menu, Button, Text } from "@mantine/core";
-import { ActionIcon, useMantineColorScheme } from "@mantine/core";
+import { Menu } from "@mantine/core";
+import { Avatar, useMantineColorScheme } from "@mantine/core";
+import { ApplicationContext } from "@/context/ApplicationContext";
 
 const Sidebar = ({ children }) => {
+  const { userData } = useContext(ApplicationContext);
   const router = useRouter();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
+
   const handleSignout = () => {
     localStorage.removeItem("token");
     router.push("/");
   };
+
   const handleTheme = () => {
     toggleColorScheme();
   };
+
   return (
     <>
       {/* Desktop and laptop view  */}
@@ -115,9 +118,18 @@ const Sidebar = ({ children }) => {
                     className="tooltip tooltip-right block lg:hidden"
                     data-tip="Profile"
                   >
-                    <CgProfile size={28} className="lg:ml-3" />
+                    <Avatar
+                      size="sm"
+                      src={userData?.photo}
+                      className="lg:ml-3"
+                    />
                   </div>
-                  <CgProfile size={28} className="lg:ml-3  hidden lg:block" />
+                  <Avatar
+                    className="lg:ml-3  hidden lg:block"
+                    src={userData?.photo}
+                    size="sm"
+                    radius={120}
+                  />
                   <p className=" ml-4 hidden lg:block">Profile</p>
                 </div>
               </Link>
@@ -212,7 +224,7 @@ const Sidebar = ({ children }) => {
                   dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
                 } rounded-full cursor-pointer`}
               >
-                <CgProfile size={28} />
+                <Avatar size="sm" src={userData?.photo} className="lg:ml-3" />
               </div>
             </Link>
             <Menu shadow="md" width={200}>

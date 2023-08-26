@@ -3,7 +3,7 @@ import { Tabs } from "@mantine/core";
 import { BsGrid3X3 } from "react-icons/bs";
 import { BiBookmark } from "react-icons/bi";
 import { useMantineColorScheme } from "@mantine/core";
-import PostGrid from "../post/PostGrid";
+import PostGrid from "../post/display/PostGrid";
 
 const ProfileBody = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();

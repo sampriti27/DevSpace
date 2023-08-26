@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createContext, useState } from "react";
 
 export const ApplicationContext = createContext();
@@ -7,6 +8,7 @@ export const ApplicationContextProvider = ({ children }) => {
   const [loader, setLoader] = useState(false);
   const [imgUrl, setImgUrl] = useState();
 
+  //Upload image to cloudinary
   const uploadImage = (image) => {
     setLoader(true);
     if (pic === undefined) {
@@ -16,10 +18,10 @@ export const ApplicationContextProvider = ({ children }) => {
     if (image.type === "image/jpeg" || image.type === "image/png") {
       const data = new FormData();
       data.append("file", image);
-      data.append("upload_preset", "DevSpace");
-      data.append("cloud_name", "dewu8pifs");
+      data.append("upload_preset", `${NEXT_PUBLIC_CLOUDINARY_PRESET}`);
+      data.append("cloud_name", `${NEXT_PUBLIC_CLOUDINARY_USERNAME}`);
 
-      fetch("https://api.cloudinary.com/v1_1/dewu8pifs/image/upload", {
+      fetch(`${NEXT_PUBLIC_CLOUDINARY_URL}`, {
         method: "post",
         body: data,
       })
@@ -39,6 +41,27 @@ export const ApplicationContextProvider = ({ children }) => {
     }
   };
 
+  //Get user data
+  const fetchLoggedUser = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      };
+      const { data } = await axios.get(
+        `${NEXT_PUBLIC_API_ENDPOINT}/api/v1/users`,
+        config
+      );
+      // console.log(data);
+      // console.log(userData);
+      setUserData(data.loggedUser);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ApplicationContext.Provider
       value={{
@@ -46,6 +69,7 @@ export const ApplicationContextProvider = ({ children }) => {
         setUserData,
         loader,
         setLoader,
+        fetchLoggedUser,
       }}
     >
       {children}

@@ -16,8 +16,10 @@ const useStyles = createStyles((theme) => ({
     marginBottom: theme.spacing.sm,
   },
 }));
+
 const FriendProfilePreview = ({ name, src, username, mutualFriendsLength }) => {
   const { classes } = useStyles();
+
   return (
     <UnstyledButton className={classes.user}>
       <Group spacing="xs" align="center">

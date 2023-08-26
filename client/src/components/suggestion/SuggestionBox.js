@@ -1,12 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import FriendProfilePreview from "./FriendProfilePreview";
-import Footer from "../footer/Footer";
 import { useMantineColorScheme } from "@mantine/core";
 
 const SuggestionBox = () => {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
+
   return (
     <div className="mt-5">
       <div className="flex justify-between items-center text-gray-400">

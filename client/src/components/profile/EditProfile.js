@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { useMantineColorScheme, Avatar, Button } from "@mantine/core";
+import { ApplicationContext } from "@/context/ApplicationContext";
 
 const EditProfile = () => {
+  const { userData } = useContext(ApplicationContext);
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
   return (
@@ -31,21 +33,22 @@ const EditProfile = () => {
                   Upload Profile Photo
                 </label>
                 <div className="mt-2 flex items-center gap-x-3">
-                  <Avatar
-                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
-                    size={80}
-                    radius={120}
-                  />
-                  <Button
-                    variant={`${dark ? "filled" : "default"}`}
-                    color={`${dark ? "dark" : ""}`}
-                    radius="md"
-                    className={`${
+                  <Avatar src={userData.photo} size={80} radius={120} />
+                  <label
+                    for="imageInput"
+                    class={`cursor-pointer px-4 py-2 rounded ${
                       dark ? "bg-[#363636] hover:bg-[#313131]" : "bg-gray-100"
-                    }`}
+                    } `}
                   >
-                    Upload
-                  </Button>
+                    Update
+                  </label>
+                  {/* <!-- Hidden Input Element to Trigger Image Selection Dialog --> */}
+                  <input
+                    id="imageInput"
+                    type="file"
+                    class="hidden"
+                    accept="image/*"
+                  />
                 </div>
               </div>
               <div className="sm:col-span-4">
@@ -58,18 +61,17 @@ const EditProfile = () => {
                 <div className="mt-2">
                   <div
                     className={`flex rounded-md shadow-sm  font-thin ${
-                      dark ? "border-gray-500 bg-[#222326]" : "border bg-white"
+                      dark ? "border-gray-500 bg-[#222326]" : "bg-gray-100"
                     }  sm:max-w-md`}
                   >
-                    <span className="flex select-none items-center pl-3  sm:text-sm">
-                      E.g.
-                    </span>
                     <input
                       type="text"
                       name="role"
                       id="role"
-                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1  focus:ring-0 sm:text-sm sm:leading-6 outline-none"
-                      placeholder="Software Developer"
+                      className={`block placeholder:font-medium ps-3 w-full rounded-md border-0 py-1.5 shadow-sm focus:ring-0 sm:text-sm sm:leading-6 outline-none ${
+                        dark ? "border-gray-500 bg-[#222326]" : "bg-gray-100"
+                      }`}
+                      placeholder="Eg. Software Developer"
                     />
                   </div>
                 </div>
@@ -90,10 +92,10 @@ const EditProfile = () => {
                     id="bio"
                     name="bio"
                     rows={3}
-                    className={`block w-full rounded-md py-1.5 ${
+                    className={`block ps-3 w-full rounded-md py-1.5 ${
                       dark
                         ? "border-0 bg-[#222326] text-gray-400"
-                        : "border-gray-400 bg-white text-gray-900"
+                        : "bg-gray-100 text-gray-900"
                     }shadow-sm focus:ring-0 sm:text-sm sm:leading-6 outline-none`}
                     defaultValue={
                       "👨‍💻 Software Engineer | 🌍 Code Explorer | etc..."
@@ -119,15 +121,16 @@ const EditProfile = () => {
                 </label>
                 <div
                   className={`mt-2  rounded-md ${
-                    dark ? "border-gray-500 bg-[#222326]" : "border bg-white"
+                    dark ? "border-gray-500 bg-[#222326]" : "bg-gray-100"
                   }`}
                 >
                   <input
                     type="text"
                     name="full-name"
                     id="full-name"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1  focus:ring-0 sm:text-sm sm:leading-6 outline-none"
+                    className="block ps-3 flex-1 border-0 bg-transparent py-1.5 pl-1  focus:ring-0 sm:text-sm sm:leading-6 outline-none"
                     placeholder="John Doe"
+                    value={userData.name}
                   />
                 </div>
               </div>
@@ -144,10 +147,11 @@ const EditProfile = () => {
                     id="email"
                     name="email"
                     type="email"
-                    className={`block w-full rounded-md border-0 py-1.5 shadow-sm focus:ring-0 sm:text-sm sm:leading-6 outline-none ${
-                      dark ? "border-gray-500 bg-[#222326]" : "border bg-white"
+                    className={`block ps-3 w-full rounded-md border-0 py-1.5 shadow-sm focus:ring-0 sm:text-sm sm:leading-6 outline-none ${
+                      dark ? "border-gray-500 bg-[#222326]" : "bg-gray-100"
                     }`}
                     placeholder="johnDoe@example.com"
+                    value={userData.email}
                   />
                 </div>
               </div>

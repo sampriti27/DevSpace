@@ -3,6 +3,13 @@ const User = require("../../models/user/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+// Random profile pic generation code ->
+const generatePic = () => {
+  const randomNumber = Math.floor(Math.random() * 10);
+  const picUrl = `https://api.randomuser.me/portraits/lego/${randomNumber}.jpg`;
+  return picUrl;
+};
+
 //Desc Register users
 //@route POST /api/user/register
 //@access public
@@ -22,13 +29,11 @@ const register = asyncHandler(async (req, res) => {
 
   if (userAvailable) {
     res.status(400);
-
     throw new Error("Email or username already exist!");
   }
 
   if (invalidUsername) {
     res.status(400);
-
     throw new Error("Email or username already exist!");
   }
 
@@ -46,6 +51,7 @@ const register = asyncHandler(async (req, res) => {
       username,
       password: hashedPassword,
       cPassword: hashedCpassword,
+      photo: generatePic(),
     });
 
     newUser.password = undefined;
@@ -56,12 +62,10 @@ const register = asyncHandler(async (req, res) => {
       res.status(201).json({ message: "new user registered successfully!" });
     } else {
       res.status(400);
-
       throw new Error("User data is invalid!");
     }
   } else {
     res.status(400);
-
     throw new Error("passwords do not match! please fill again!");
   }
 });
@@ -77,7 +81,6 @@ const signin = asyncHandler(async (req, res) => {
     //validate
     if (!username || !password) {
       res.status(400);
-
       throw new Error("Please fill all the fields");
     }
 
@@ -111,7 +114,6 @@ const signin = asyncHandler(async (req, res) => {
       }
     } else {
       res.status(400);
-
       throw new Error("User does not exist!");
     }
   } catch (error) {
@@ -126,9 +128,7 @@ const signin = asyncHandler(async (req, res) => {
 
 const currentUser = asyncHandler(async (req, res) => {
   try {
-    req.user.password = undefined;
-    req.user.cPassword = undefined;
-    res.status(200).json({ message: "current user", currentUser: req.user });
+    res.json({ sucess: true, loggedUser: req.user }).status(200);
   } catch (error) {
     res.json(error);
   }

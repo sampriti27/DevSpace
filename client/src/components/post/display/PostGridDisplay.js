@@ -5,7 +5,6 @@ import PostDetails from "./PostDetails";
 
 const PostGridDisplay = () => {
   const [opened, { open, close }] = useDisclosure(false);
-
   const isMobile = useMediaQuery("(max-width: 50em)");
 
   return (

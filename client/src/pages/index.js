@@ -1,4 +1,3 @@
-import Footer from "@/components/footer/Footer";
 import Login from "../components/auth/Login";
 import Register from "../components/auth/Register";
 import React, { useState } from "react";
@@ -12,13 +11,10 @@ const index = () => {
           <Login setAuthtype={setAuthtype} />
         </div>
       ) : (
-        <div className="flex flex-col justify-center items-center h-screen w-screen">
+        <div className="flex flex-col justify-center items-center">
           <Register setAuthtype={setAuthtype} />
         </div>
       )}
-      <div className="mt-20">
-        <Footer />
-      </div>
     </>
   );
 };

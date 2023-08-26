@@ -1,9 +1,9 @@
 import React from "react";
 import { AiOutlineHeart } from "react-icons/ai";
-import { ActionIcon, useMantineColorScheme } from "@mantine/core";
+import { useMantineColorScheme } from "@mantine/core";
 
 const Header = () => {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
   return (
     <>

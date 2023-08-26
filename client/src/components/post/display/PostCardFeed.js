@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { AiOutlineHeart, AiOutlineShareAlt } from "react-icons/ai";
 import { BiBookmark } from "react-icons/bi";
 import { BsSend, BsBookmarkCheckFill } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import { RxDotFilled } from "react-icons/rx";
 import { FcLike } from "react-icons/fc";
-import { useDisclosure, useMediaQuery } from "@mantine/hooks";
+import { useDisclosure } from "@mantine/hooks";
 import PostDetails from "./PostDetails";
 import {
   createStyles,
@@ -15,9 +14,7 @@ import {
   Text,
   Image,
   Avatar,
-  Badge,
   Modal,
-  rem,
   useMantineColorScheme,
   ScrollArea,
   Button,
@@ -73,8 +70,8 @@ const PostCardFeed = ({
   caption,
   postTime,
 }) => {
-  const { classes, theme } = useStyles();
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const { classes } = useStyles();
+  const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
   const [showFullCaption, setShowFullCaption] = useState(false);
   const toggleCaption = () => {
@@ -88,6 +85,7 @@ const PostCardFeed = ({
   const handleCloseLikeModal = () => {
     setOpenLikeModal(false);
   };
+
   const content = Array(100)
     .fill(0)
     .map((_, index) => (

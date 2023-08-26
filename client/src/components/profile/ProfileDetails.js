@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Avatar, useMantineColorScheme } from "@mantine/core";
 import ProfileInfo from "./ProfileInfo";
+import { ApplicationContext } from "@/context/ApplicationContext";
 
 const ProfileDetails = () => {
   const [avatarSize, setAvatarSize] = useState(170);
+  const { userData } = useContext(ApplicationContext);
 
   useEffect(() => {
     const handleResize = () => {
@@ -49,7 +51,7 @@ const ProfileDetails = () => {
       <div className="w-full flex md:flex-row flex-col md:items-start items-center justify-center gap-2 md:px-10  ">
         <div className="">
           <Avatar
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+            src={userData?.photo}
             size={avatarSize}
             radius={avatarSize - 20}
           />

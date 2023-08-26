@@ -8,7 +8,7 @@ app.use(cors());
 
 // error handler
 const asyncHandler = require("express-async-handler");
-const errorHandler = require("./src/middlewares/errorHandler");
+const { notFound, errorHandler } = require("./src/middlewares/errorHandler");
 
 //initializing dotenv
 require("dotenv").config();
@@ -39,6 +39,7 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/users/post", postRoutes);
 
 app.use(errorHandler);
+app.use(notFound);
 
 // server
 app.listen(PORT, () => {

@@ -5,6 +5,7 @@ import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { ApplicationContextProvider } from "@/context/ApplicationContext";
+import ProtectedRoute from "@/components/routes/ProtectedRoutes";
 
 export default function App({ Component, pageProps }) {
   const [colorScheme, setColorScheme] = useState("light");
@@ -22,19 +23,21 @@ export default function App({ Component, pageProps }) {
       >
         <ChakraProvider>
           <ApplicationContextProvider>
-            <ToastContainer
-              position="top-right"
-              autoClose={2000}
-              hideProgressBar={true}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="colored"
-            />
-            <Component {...pageProps} />
+            <ProtectedRoute>
+              <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+              />
+              <Component {...pageProps} />
+            </ProtectedRoute>
           </ApplicationContextProvider>
         </ChakraProvider>
       </MantineProvider>

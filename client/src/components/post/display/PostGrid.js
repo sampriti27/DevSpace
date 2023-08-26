@@ -1,5 +1,5 @@
 import React from "react";
-import PostGridDisplay from "./display/PostGridDisplay";
+import PostGridDisplay from "./PostGridDisplay";
 
 const PostGrid = () => {
   return (

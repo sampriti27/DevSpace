@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Sidebar from "@/components/sidebar/Sidebar";
 import { useMantineColorScheme } from "@mantine/core";
 import ProfileDetails from "@/components/profile/ProfileDetails";
 import ProfileBody from "@/components/profile/ProfileBody";
+import { ApplicationContext } from "@/context/ApplicationContext";
 const profile = () => {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const { userData } = useContext(ApplicationContext);
+  useEffect(() => {
+    document.title = `${userData ? userData?.username : "DevSpace"} | Profile`;
+  });
+  const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
+
   return (
     <>
       <Sidebar>
