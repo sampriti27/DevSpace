@@ -144,7 +144,13 @@ const updateProfile = asyncHandler(async (req, res) => {
     .then((updatedUser) => {
       updatedUser.password = undefined;
       updatedUser.cPassword = undefined;
-      res.status(200).json({ message: "Profile details Updated", updatedUser }); // Respond with the updated user data
+      res
+        .status(200)
+        .json({
+          message: "Profile details Updated",
+          success: true,
+          updatedUser,
+        }); // Respond with the updated user data
     })
     .catch((error) => {
       res

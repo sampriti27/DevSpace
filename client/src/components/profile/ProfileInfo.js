@@ -71,14 +71,11 @@ const ProfileInfo = ({ profileData }) => {
               dark ? "" : "text-gray-700"
             } font-normal text-xs mt-0`}
           >
-            {profileData.job}
+            {userData?.role}
           </span>
         </div>
         <div className="mt-2">
-          <p className="font-light text-sm">
-            👨‍💻 Software Engineer | 🌍 Code Explorer | ☕ Coffee Lover 🎓
-            Computer Science Grad | 🚀 Passionate about Tech & Innovation
-          </p>
+          <p className="font-light text-sm">{userData?.bio}</p>
         </div>
       </div>
       <Drawer
@@ -89,7 +86,7 @@ const ProfileInfo = ({ profileData }) => {
         size="lg"
         withCloseButton={false}
       >
-        <EditProfile />
+        <EditProfile onClose={close} />
       </Drawer>
     </>
   );

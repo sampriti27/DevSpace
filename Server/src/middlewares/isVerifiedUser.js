@@ -21,7 +21,7 @@ const isVerifiedUser = asyncHandler(async (req, res, next) => {
         throw new Error("Unauthorized user!");
       }
 
-      console.log(decoded);
+      // console.log(decoded);
       const { _id } = decoded;
       User.findById(_id).then((userData) => {
         req.user = userData;

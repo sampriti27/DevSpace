@@ -18,10 +18,16 @@ export const ApplicationContextProvider = ({ children }) => {
     if (image.type === "image/jpeg" || image.type === "image/png") {
       const data = new FormData();
       data.append("file", image);
-      data.append("upload_preset", `${NEXT_PUBLIC_CLOUDINARY_PRESET}`);
-      data.append("cloud_name", `${NEXT_PUBLIC_CLOUDINARY_USERNAME}`);
+      data.append(
+        "upload_preset",
+        `${process.env.NEXT_PUBLIC_CLOUDINARY_PRESET}`
+      );
+      data.append(
+        "cloud_name",
+        `${process.env.NEXT_PUBLIC_CLOUDINARY_USERNAME}`
+      );
 
-      fetch(`${NEXT_PUBLIC_CLOUDINARY_URL}`, {
+      fetch(`${process.env.NEXT_PUBLIC_CLOUDINARY_URL}`, {
         method: "post",
         body: data,
       })
@@ -51,7 +57,7 @@ export const ApplicationContextProvider = ({ children }) => {
         },
       };
       const { data } = await axios.get(
-        `${NEXT_PUBLIC_API_ENDPOINT}/api/v1/users`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users`,
         config
       );
       // console.log(data);
