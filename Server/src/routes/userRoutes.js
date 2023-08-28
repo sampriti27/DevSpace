@@ -9,6 +9,7 @@ const {
   currentUser,
   updateProfile,
   signout,
+  uploadPhoto,
 } = require("../controllers/user/userController");
 
 //Authentication Routes
@@ -25,6 +26,9 @@ router.route("/").get(isVerifiedUser, currentUser);
 
 // update profile route
 router.route("/update-profile/:id").put(isVerifiedUser, updateProfile);
+
+//upload photo
+router.route("/upload-photo/:id").patch(isVerifiedUser, uploadPhoto);
 
 // logout route
 router.route("/signout").get(signout);

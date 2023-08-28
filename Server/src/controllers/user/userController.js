@@ -144,13 +144,11 @@ const updateProfile = asyncHandler(async (req, res) => {
     .then((updatedUser) => {
       updatedUser.password = undefined;
       updatedUser.cPassword = undefined;
-      res
-        .status(200)
-        .json({
-          message: "Profile details Updated",
-          success: true,
-          updatedUser,
-        }); // Respond with the updated user data
+      res.status(200).json({
+        message: "Profile details Updated",
+        success: true,
+        updatedUser,
+      }); // Respond with the updated user data
     })
     .catch((error) => {
       res
@@ -160,6 +158,38 @@ const updateProfile = asyncHandler(async (req, res) => {
           error
         );
     });
+});
+
+//Desc upload profile picture
+//@route PATCH /api/user/?upload-photo/:id
+//@access protected
+const uploadPhoto = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { photo } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Update the user's photo field
+    user.photo = photo;
+
+    // Save the updated user
+    await user.save();
+
+    res.status(200).json({
+      message: "Profile photo updated",
+      success: true,
+      user,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred while adding the photo" });
+
+    console.log(error);
+  }
 });
 
 //Desc logout user
@@ -174,4 +204,11 @@ const signout = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { register, signin, currentUser, updateProfile, signout };
+module.exports = {
+  register,
+  signin,
+  currentUser,
+  updateProfile,
+  uploadPhoto,
+  signout,
+};

@@ -8,7 +8,7 @@ import axios from "axios";
 import { BeatLoader } from "react-spinners";
 
 const EditProfile = ({ onClose }) => {
-  const { userData, fetchLoggedUser, loader, setLoader } =
+  const { userData, fetchLoggedUser, loader, setLoader, uploadImage, imgUrl } =
     useContext(ApplicationContext);
   const [editProfileData, setEditProfileData] = useState({
     role: userData?.role || "",
@@ -42,10 +42,39 @@ const EditProfile = ({ onClose }) => {
       onClose();
     } catch (error) {
       setLoader(false);
-      console.log(error);
+      toast.warning(error.response?.data.message);
     }
   };
 
+  //upload profile pictue
+  const handleUploadImage = async (e) => {
+    e.preventDefault();
+    // console.log(imgUrl);
+    uploadImage(e.target.files[0]);
+    try {
+      const photo = imgUrl;
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      };
+      setLoader(true);
+      const { data } = await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/upload-photo/${_id}`,
+        { photo },
+        config
+      );
+      fetchLoggedUser();
+      setLoader(false);
+      toast.success(data.message);
+      onClose();
+    } catch (error) {
+      console.log(error);
+      toast.warning(error.response?.data.message);
+      setLoader(false);
+    }
+  };
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
 
@@ -73,7 +102,7 @@ const EditProfile = ({ onClose }) => {
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="col-span-full">
                 <label
-                  htmlFor="photo"
+                  For="photo"
                   className="block text-sm font-medium leading-6 "
                 >
                   Upload Profile Photo
@@ -86,20 +115,26 @@ const EditProfile = ({ onClose }) => {
                       dark ? "bg-[#363636] hover:bg-[#313131]" : "bg-gray-100"
                     } `}
                   >
-                    Update
+                    {loader ? (
+                      <BeatLoader color="white" />
+                    ) : (
+                      <span> Update</span>
+                    )}
                   </label>
                   {/* <!-- Hidden Input Element to Trigger Image Selection Dialog --> */}
                   <input
                     id="imageInput"
                     type="file"
-                    class="hidden"
                     accept="image/*"
+                    className="cursor-pointer hidden"
+                    name="photo"
+                    onChange={(e) => handleUploadImage(e)}
                   />
                 </div>
               </div>
               <div className="sm:col-span-4">
                 <label
-                  htmlFor="role"
+                  For="role"
                   className="block text-sm font-medium leading-6"
                 >
                   Role
@@ -132,7 +167,7 @@ const EditProfile = ({ onClose }) => {
 
               <div className="col-span-full">
                 <label
-                  htmlFor="about"
+                  For="about"
                   className="block text-sm font-medium leading-6"
                 >
                   Bio
@@ -174,7 +209,7 @@ const EditProfile = ({ onClose }) => {
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-3">
                 <label
-                  htmlFor="full-name"
+                  For="full-name"
                   className="block text-sm font-medium leading-6"
                 >
                   Full Name
@@ -198,7 +233,7 @@ const EditProfile = ({ onClose }) => {
 
               <div className="sm:col-span-4">
                 <label
-                  htmlFor="email"
+                  For="email"
                   className="block text-sm font-medium leading-6"
                 >
                   Email address

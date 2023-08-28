@@ -50,7 +50,7 @@ const Login = ({ setAuthtype }) => {
       setUserData(data.user);
       localStorage.setItem("token", JSON.stringify(data.accessToken));
       setLoader(false);
-      router.push("/profile");
+      router.push("/feed");
     } catch (error) {
       console.log(error);
       toast.warning(error.response?.data.message);

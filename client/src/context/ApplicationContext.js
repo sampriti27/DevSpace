@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext, useState } from "react";
-
+import { toast } from "react-toastify";
 export const ApplicationContext = createContext();
 
 export const ApplicationContextProvider = ({ children }) => {
@@ -11,7 +11,7 @@ export const ApplicationContextProvider = ({ children }) => {
   //Upload image to cloudinary
   const uploadImage = (image) => {
     setLoader(true);
-    if (pic === undefined) {
+    if (image === undefined) {
       console.log("Add Image");
       return;
     }
@@ -76,6 +76,8 @@ export const ApplicationContextProvider = ({ children }) => {
         loader,
         setLoader,
         fetchLoggedUser,
+        uploadImage,
+        imgUrl,
       }}
     >
       {children}
