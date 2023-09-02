@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Tabs } from "@mantine/core";
 import { BsGrid3X3 } from "react-icons/bs";
 import { BiBookmark } from "react-icons/bi";
-import { useMantineColorScheme } from "@mantine/core";
+import { useMantineColorScheme, Modal } from "@mantine/core";
 import PostGrid from "../post/display/PostGrid";
+import { ApplicationContext } from "@/context/ApplicationContext";
+import CreatePostModel from "../post/createPost/CreatePostModel";
 
 const ProfileBody = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const { openCreatePostModal, handleCloseCreatePostModal } =
+    useContext(ApplicationContext);
   const dark = colorScheme === "dark";
   return (
     <>
@@ -28,6 +32,19 @@ const ProfileBody = () => {
           Saved Posts
         </Tabs.Panel>
       </Tabs>
+      <Modal
+        opened={openCreatePostModal}
+        onClose={handleCloseCreatePostModal}
+        withCloseButton={false}
+        size="50%"
+        transitionProps={{
+          transition: "fade",
+          duration: 300,
+          timingFunction: "linear",
+        }}
+      >
+        <CreatePostModel />
+      </Modal>
     </>
   );
 };

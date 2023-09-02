@@ -7,6 +7,7 @@ export const ApplicationContextProvider = ({ children }) => {
   const [userData, setUserData] = useState();
   const [loader, setLoader] = useState(false);
   const [imgUrl, setImgUrl] = useState();
+  const [openCreatePostModal, setOpenCreatePostModal] = useState(false);
 
   //Upload image to cloudinary
   const uploadImage = (image) => {
@@ -34,7 +35,7 @@ export const ApplicationContextProvider = ({ children }) => {
         .then((res) => res.json())
         .then((data) => {
           setImgUrl(data.url.toString());
-          console.log(data.url.toString());
+          // console.log(data.url.toString());
           setLoader(false);
         })
         .catch((err) => {
@@ -60,7 +61,7 @@ export const ApplicationContextProvider = ({ children }) => {
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users`,
         config
       );
-      // console.log(data);
+      console.log(data);
       // console.log(userData);
       setUserData(data.loggedUser);
     } catch (error) {
@@ -68,6 +69,10 @@ export const ApplicationContextProvider = ({ children }) => {
     }
   };
 
+  //closing the create post model
+  const handleCloseCreatePostModal = () => {
+    setOpenCreatePostModal(false);
+  };
   return (
     <ApplicationContext.Provider
       value={{
@@ -78,6 +83,9 @@ export const ApplicationContextProvider = ({ children }) => {
         fetchLoggedUser,
         uploadImage,
         imgUrl,
+        openCreatePostModal,
+        setOpenCreatePostModal,
+        handleCloseCreatePostModal,
       }}
     >
       {children}

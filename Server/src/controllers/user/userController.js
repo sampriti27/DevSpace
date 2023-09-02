@@ -167,8 +167,10 @@ const uploadPhoto = asyncHandler(async (req, res) => {
   try {
     const userId = req.params.id;
     const { photo } = req.body;
+    console.log(photo);
 
     const user = await User.findById(userId);
+    console.log("before update", user);
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -177,8 +179,12 @@ const uploadPhoto = asyncHandler(async (req, res) => {
     // Update the user's photo field
     user.photo = photo;
 
+    console.log("after update", user);
+
     // Save the updated user
     await user.save();
+
+    console.log("After save ", user);
 
     res.status(200).json({
       message: "Profile photo updated",

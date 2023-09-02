@@ -4,11 +4,18 @@ import { PiVideoFill } from "react-icons/pi";
 import { AiFillSchedule } from "react-icons/ai";
 import { TextInput, Avatar, useMantineColorScheme } from "@mantine/core";
 import { ApplicationContext } from "@/context/ApplicationContext";
+import { Modal } from "@mantine/core";
+import CreatePostModel from "./CreatePostModel";
 
 const CreatePostFeed = () => {
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
-  const { userData } = useContext(ApplicationContext);
+  const {
+    userData,
+    openCreatePostModal,
+    setOpenCreatePostModal,
+    handleCloseCreatePostModal,
+  } = useContext(ApplicationContext);
 
   return (
     <>
@@ -21,7 +28,10 @@ const CreatePostFeed = () => {
       >
         {/* NEW Layout */}
 
-        <div className="w-full  px-5">
+        <div
+          className="w-full  px-5"
+          onClick={() => setOpenCreatePostModal(true)}
+        >
           <div className="flex justify-between items-center">
             <div className="w-8 sm:w-12">
               <Avatar src={userData?.photo} size={80} radius={120} mx="auto" />
@@ -31,6 +41,7 @@ const CreatePostFeed = () => {
                 radius="xl"
                 size="md"
                 placeholder="Start Post"
+                disabled
                 rightSectionWidth={42}
               />
 
@@ -64,6 +75,20 @@ const CreatePostFeed = () => {
           </div>
         </div>
       </div>
+
+      <Modal
+        opened={openCreatePostModal}
+        onClose={handleCloseCreatePostModal}
+        withCloseButton={false}
+        size="50%"
+        transitionProps={{
+          transition: "fade",
+          duration: 300,
+          timingFunction: "linear",
+        }}
+      >
+        <CreatePostModel />
+      </Modal>
     </>
   );
 };

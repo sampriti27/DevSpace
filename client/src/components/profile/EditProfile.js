@@ -16,7 +16,7 @@ const EditProfile = ({ onClose }) => {
     gender: userData?.gender || "",
     dob: userData?.dob || null,
   });
-  const _id = userData?._id;
+  console.log(userData);
 
   //submit profile details
   const handleSubmit = async () => {
@@ -30,7 +30,7 @@ const EditProfile = ({ onClose }) => {
       // console.log(editProfileData);
       setLoader(true);
       const { data } = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/update-profile/${_id}`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/update-profile/${userData._id}`,
         editProfileData,
         config
       );
@@ -46,13 +46,8 @@ const EditProfile = ({ onClose }) => {
     }
   };
 
-  //upload profile pictue
-  const handleUploadImage = async (e) => {
-    e.preventDefault();
-    // console.log(imgUrl);
-    uploadImage(e.target.files[0]);
+  const updateImage = async (url) => {
     try {
-      const photo = imgUrl;
       const config = {
         headers: {
           "Content-type": "application/json",
@@ -60,12 +55,14 @@ const EditProfile = ({ onClose }) => {
         },
       };
       setLoader(true);
+      const photo = url;
       const { data } = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/upload-photo/${_id}`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/upload-photo/${userData._id}`,
         { photo },
         config
       );
-      fetchLoggedUser();
+      console.log(data);
+      // fetchLoggedUser();
       setLoader(false);
       toast.success(data.message);
       onClose();
@@ -74,6 +71,14 @@ const EditProfile = ({ onClose }) => {
       toast.warning(error.response?.data.message);
       setLoader(false);
     }
+  };
+
+  //upload profile pictue
+  const handleUploadImage = async (e) => {
+    e.preventDefault();
+    uploadImage(e.target.files[0]);
+    console.log(imgUrl);
+    updateImage(imgUrl);
   };
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";

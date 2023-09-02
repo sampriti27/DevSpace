@@ -12,7 +12,8 @@ import { Avatar, useMantineColorScheme } from "@mantine/core";
 import { ApplicationContext } from "@/context/ApplicationContext";
 
 const Sidebar = ({ children }) => {
-  const { userData } = useContext(ApplicationContext);
+  const { userData, openCreatePostModal, setOpenCreatePostModal } =
+    useContext(ApplicationContext);
   const router = useRouter();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
@@ -98,6 +99,7 @@ const Sidebar = ({ children }) => {
                 className={`flex items-center w-12 h-12 justify-center lg:justify-start lg:w-56 lg:py-2 ${
                   dark ? "hover:bg-[#25262B]" : "hover:bg-gray-50"
                 } rounded-full cursor-pointer`}
+                onClick={() => setOpenCreatePostModal(true)}
               >
                 <div
                   className="tooltip tooltip-right block lg:hidden"
@@ -215,6 +217,7 @@ const Sidebar = ({ children }) => {
               className={`flex items-center w-12 h-12 justify-center${
                 dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
               } rounded-full cursor-pointer`}
+              onClick={() => setOpenCreatePostModal(true)}
             >
               <FiPlusSquare size={28} />
             </div>
