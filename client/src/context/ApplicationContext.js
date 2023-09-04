@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext, useState } from "react";
-import { toast } from "react-toastify";
+import { useMediaQuery } from "@mantine/hooks";
 export const ApplicationContext = createContext();
 
 export const ApplicationContextProvider = ({ children }) => {
@@ -8,6 +8,7 @@ export const ApplicationContextProvider = ({ children }) => {
   const [loader, setLoader] = useState(false);
   const [imgUrl, setImgUrl] = useState();
   const [openCreatePostModal, setOpenCreatePostModal] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 50em)");
 
   //Upload image to cloudinary
   const uploadImage = (image) => {
@@ -86,6 +87,7 @@ export const ApplicationContextProvider = ({ children }) => {
         openCreatePostModal,
         setOpenCreatePostModal,
         handleCloseCreatePostModal,
+        isMobile,
       }}
     >
       {children}

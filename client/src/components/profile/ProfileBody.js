@@ -9,7 +9,7 @@ import CreatePostModel from "../post/createPost/CreatePostModel";
 
 const ProfileBody = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const { openCreatePostModal, handleCloseCreatePostModal } =
+  const { openCreatePostModal, handleCloseCreatePostModal, isMobile } =
     useContext(ApplicationContext);
   const dark = colorScheme === "dark";
   return (
@@ -36,7 +36,8 @@ const ProfileBody = () => {
         opened={openCreatePostModal}
         onClose={handleCloseCreatePostModal}
         withCloseButton={false}
-        size="50%"
+        size="xl"
+        fullScreen={isMobile}
         transitionProps={{
           transition: "fade",
           duration: 300,

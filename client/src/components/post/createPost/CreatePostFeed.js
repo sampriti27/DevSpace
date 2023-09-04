@@ -9,12 +9,14 @@ import CreatePostModel from "./CreatePostModel";
 
 const CreatePostFeed = () => {
   const { colorScheme } = useMantineColorScheme();
+
   const dark = colorScheme === "dark";
   const {
     userData,
     openCreatePostModal,
     setOpenCreatePostModal,
     handleCloseCreatePostModal,
+    isMobile,
   } = useContext(ApplicationContext);
 
   return (
@@ -80,7 +82,8 @@ const CreatePostFeed = () => {
         opened={openCreatePostModal}
         onClose={handleCloseCreatePostModal}
         withCloseButton={false}
-        size="50%"
+        fullScreen={isMobile}
+        size="xl"
         transitionProps={{
           transition: "fade",
           duration: 300,
