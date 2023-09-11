@@ -1,38 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { MdPhoto } from "react-icons/md";
 import { PiVideoFill } from "react-icons/pi";
 import { AiFillSchedule } from "react-icons/ai";
 import { TextInput, Avatar, useMantineColorScheme } from "@mantine/core";
 import { ApplicationContext } from "@/context/ApplicationContext";
-import { Modal } from "@mantine/core";
-import CreatePostModel from "./CreatePostModel";
 
 const CreatePostFeed = () => {
   const { colorScheme } = useMantineColorScheme();
-
+  const [scrollBehavior, setScrollBehaviour] = useState("inside");
   const dark = colorScheme === "dark";
   const {
-    userData,
-    openCreatePostModal,
-    setOpenCreatePostModal,
-    handleCloseCreatePostModal,
-    isMobile,
+    userData, setIsModalOpen
   } = useContext(ApplicationContext);
 
   return (
-    <>
+    <div>
       <div
         className={` w-full  h-36 relative ${
           dark
             ? "bg-[#1A1B1E] text-white border-slate-50"
             : "bg-white text-black border"
         }  flex items-center sm:justify-between rounded-xl mt-0`}
+        onClick={() => setIsModalOpen(true)}
       >
         {/* NEW Layout */}
 
         <div
           className="w-full  px-5"
-          onClick={() => setOpenCreatePostModal(true)}
         >
           <div className="flex justify-between items-center">
             <div className="w-8 sm:w-12">
@@ -77,22 +71,7 @@ const CreatePostFeed = () => {
           </div>
         </div>
       </div>
-
-      <Modal
-        opened={openCreatePostModal}
-        onClose={handleCloseCreatePostModal}
-        withCloseButton={false}
-        fullScreen={isMobile}
-        size="xl"
-        transitionProps={{
-          transition: "fade",
-          duration: 300,
-          timingFunction: "linear",
-        }}
-      >
-        <CreatePostModel />
-      </Modal>
-    </>
+    </div>
   );
 };
 

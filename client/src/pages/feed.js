@@ -1,37 +1,23 @@
 import Sidebar from "@/components/sidebar/Sidebar";
 import Header from "@/components/header/Header";
 import CreatePostFeed from "@/components/post/createPost/CreatePostFeed";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ProfilePreview from "@/components/profile/ProfilePreview";
 import avatar from "../../public/utils/avatar.jpeg";
 import { useMantineColorScheme } from "@mantine/core";
-import { postImg } from "../../public/utils/post/postImg1.jpg";
 import PostCardFeed from "@/components/post/display/PostCardFeed";
 import SuggestionBox from "@/components/suggestion/SuggestionBox";
+import { ApplicationContext } from "@/context/ApplicationContext";
 
 const feed = () => {
   useEffect(() => {
     document.title = "DevSpace";
-  });
-
+  }, []);
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
-  const articleData = {
-    image: postImg,
-    category: "Technology",
-    title: "Your Article Title",
-    footer: "3 min read",
-    author: {
-      name: "John Doe",
-      description: "Software Engineer",
-      username: "@john_Doe",
-      image: { avatar },
-    },
-    postTime: "1d",
-    caption:
-      " DevSpace provides a dedicated space for developers to connect with their community, showcase their skills, and engage in meaningful discussions,I am really enjoying it",
-  };
+  const { userData, allPosts } = useContext(ApplicationContext);
 
+  console.log(allPosts);
   return (
     <>
       <Sidebar>
@@ -43,9 +29,11 @@ const feed = () => {
                 <div className="scroll-container scrollbar-hide">
                   <CreatePostFeed />
                   <div className="mt-5 px-0 md:px-5 flex flex-col items-center justify-center w-full">
-                    <PostCardFeed {...articleData} />
-                    <PostCardFeed {...articleData} />
-                    <PostCardFeed {...articleData} />
+                    {allPosts
+                      ?.map((cur) => {
+                        return <PostCardFeed key={cur._id} elem={cur} />;
+                      })
+                      .reverse()}
                   </div>
                 </div>
               </div>

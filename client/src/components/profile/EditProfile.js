@@ -6,9 +6,10 @@ import { AiFillEdit } from "react-icons/ai";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { BeatLoader } from "react-spinners";
+import { uploadImage } from "../utils/auth";
 
 const EditProfile = ({ onClose }) => {
-  const { userData, fetchLoggedUser, loader, setLoader, uploadImage, imgUrl } =
+  const { userData, fetchLoggedUser, loader, setLoader } =
     useContext(ApplicationContext);
   const [editProfileData, setEditProfileData] = useState({
     role: userData?.role || "",
@@ -54,31 +55,37 @@ const EditProfile = ({ onClose }) => {
           Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
         },
       };
-      setLoader(true);
       const photo = url;
       const { data } = await axios.patch(
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/upload-photo/${userData._id}`,
         { photo },
         config
       );
-      console.log(data);
-      // fetchLoggedUser();
-      setLoader(false);
+      console.log("updated user data", data);
+      fetchLoggedUser();
       toast.success(data.message);
       onClose();
     } catch (error) {
       console.log(error);
       toast.warning(error.response?.data.message);
-      setLoader(false);
     }
   };
 
   //upload profile pictue
-  const handleUploadImage = async (e) => {
+  const handleUploadImage = (e) => {
     e.preventDefault();
-    uploadImage(e.target.files[0]);
-    console.log(imgUrl);
-    updateImage(imgUrl);
+    // setLoader(true);
+    uploadImage(e.target.files[0])
+      .then((imageUrl) => {
+        // Handle the uploaded image URL here
+        console.log("Uploaded Image URL:", imageUrl);
+        updateImage(imageUrl);
+      })
+      .catch((error) => {
+        // Handle any errors here
+        console.error("Error:", error);
+      });
+    // setLoader(false);
   };
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";

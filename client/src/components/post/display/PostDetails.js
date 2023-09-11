@@ -3,6 +3,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { BiBookmark } from "react-icons/bi";
 import { BsSend, BsBookmarkCheckFill } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
+import { AiOutlineClose } from "react-icons/ai";
 import { FcLike } from "react-icons/fc";
 import {
   createStyles,
@@ -39,7 +40,22 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const PostDetails = () => {
+const SmallScreenImage = ({ elem }) => {
+  return <Image src={elem?.postImage} alt="" fit="contain" />;
+};
+
+const LargeScreenImage = ({ elem }) => {
+  return (
+    <Image
+      src={elem?.postImage}
+      alt=""
+      className="large-screen-image"
+      height={600}
+    />
+  );
+};
+
+const PostDetails = ({ onClose, elem }) => {
   const { classes, theme } = useStyles();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const [like, setLike] = useState(false);
@@ -51,13 +67,40 @@ const PostDetails = () => {
     >
       {/* div 1 starts  */}
       <div className=" flex-1 h-full ">
-        <div className="max-h-full aspect-w-1 aspect-h-1 ">
-          <Image
-            src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2ViJTIwZGV2ZWxvcGVyfGVufDB8fDB8fHww&w=1000&q=80"
-            alt=""
-            height={600}
-            // fit="contain"
+        <div className="flex sm:hidden items-center justify-between ">
+          <div className="flex items-center justify-between ">
+            <div className={classes.authorInfo}>
+              <Avatar src={elem?.userId.photo} radius="xl" />
+              <div className={classes.authorText}>
+                <div className="flex gap-1 items-center">
+                  <Text fw={600}>{elem?.userId.username}</Text>
+
+                  <Text
+                    fw={400}
+                    fz="sm"
+                    c="dimmed"
+                    className="flex items-center"
+                  ></Text>
+                </div>
+                <Text fz="xs" c="dimmed">
+                  {elem?.userId.role}
+                </Text>
+              </div>
+            </div>
+          </div>
+          <AiOutlineClose
+            size={20}
+            className="cursor-pointer"
+            onClick={onClose}
           />
+        </div>
+        <div className="w-full px-2 mt-2 border border-gray-100 h-0"></div>
+        <div className="max-h-full aspect-w-1 aspect-h-1 ">
+          {window.innerWidth <= 630 ? (
+            <SmallScreenImage elem={elem} />
+          ) : (
+            <LargeScreenImage elem={elem} />
+          )}
         </div>
       </div>
       {/* div 1 ends  */}
@@ -65,16 +108,13 @@ const PostDetails = () => {
       <div className="flex-1 flex flex-col justify-between h-[600px] ">
         {/* header starts */}
         <div className="">
-          <div className="flex items-center justify-between ">
+          <div className=" hidden sm:flex items-center justify-between ">
             <div className="flex items-center justify-between ">
               <div className={classes.authorInfo}>
-                <Avatar
-                  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
-                  radius="xl"
-                />
+                <Avatar src={elem?.userId.photo} radius="xl" />
                 <div className={classes.authorText}>
                   <div className="flex gap-1 items-center">
-                    <Text fw={600}>John_Doe</Text>
+                    <Text fw={600}>{elem?.userId.username}</Text>
 
                     <Text
                       fw={400}
@@ -84,12 +124,16 @@ const PostDetails = () => {
                     ></Text>
                   </div>
                   <Text fz="xs" c="dimmed">
-                    Software Engneer
+                    {elem?.userId.role}
                   </Text>
                 </div>
               </div>
             </div>
-            <BsThreeDots />
+            <AiOutlineClose
+              size={20}
+              className="cursor-pointer"
+              onClick={onClose}
+            />
           </div>
           <div className="w-full px-2 mt-2 border border-gray-100 h-0"></div>
           {/* header ends */}
@@ -98,17 +142,13 @@ const PostDetails = () => {
               {/* caption */}
               <div>
                 <div className="flex items-start gap-3">
-                  <Avatar
-                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
-                    radius="xl"
-                  />
+                  <Avatar src={elem?.userId.photo} radius="xl" />
                   <div>
                     <p className="text-sm">
-                      <span className="font-semibold text-sm">@John_Doe</span>{" "}
-                      &nbsp; 😎😎😎 DevSpace provides a dedicated space for
-                      developers to connect with their community, showcase their
-                      skills, and engage in meaningful discussions,I am really
-                      enjoying it
+                      <span className="font-semibold text-sm">
+                        {elem?.userId.username}
+                      </span>{" "}
+                      &nbsp; {elem?.postCaption}
                     </p>
                     <Text
                       fw={400}

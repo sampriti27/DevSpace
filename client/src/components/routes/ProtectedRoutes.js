@@ -5,7 +5,7 @@ import { ApplicationContext } from "@/context/ApplicationContext";
 
 const ProtectedRoute = ({ children }) => {
   const router = useRouter();
-  const { fetchLoggedUser } = useContext(ApplicationContext);
+  const { fetchLoggedUser, getAllPosts } = useContext(ApplicationContext);
 
   useEffect(() => {
     const checkAuthentication = async () => {
@@ -13,6 +13,7 @@ const ProtectedRoute = ({ children }) => {
         router.push("/"); // Redirect to the login page
       } else {
         fetchLoggedUser();
+        getAllPosts();
       }
     };
 

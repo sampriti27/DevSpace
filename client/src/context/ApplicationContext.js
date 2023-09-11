@@ -7,47 +7,10 @@ export const ApplicationContextProvider = ({ children }) => {
   const [userData, setUserData] = useState();
   const [loader, setLoader] = useState(false);
   const [imgUrl, setImgUrl] = useState();
-  const [openCreatePostModal, setOpenCreatePostModal] = useState(false);
+  const [allPosts, setAllPosts] = useState();
+  const [userPosts, setUserPosts] = useState();
+  const [isModelOpen, setIsModalOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 50em)");
-
-  //Upload image to cloudinary
-  const uploadImage = (image) => {
-    setLoader(true);
-    if (image === undefined) {
-      console.log("Add Image");
-      return;
-    }
-    if (image.type === "image/jpeg" || image.type === "image/png") {
-      const data = new FormData();
-      data.append("file", image);
-      data.append(
-        "upload_preset",
-        `${process.env.NEXT_PUBLIC_CLOUDINARY_PRESET}`
-      );
-      data.append(
-        "cloud_name",
-        `${process.env.NEXT_PUBLIC_CLOUDINARY_USERNAME}`
-      );
-
-      fetch(`${process.env.NEXT_PUBLIC_CLOUDINARY_URL}`, {
-        method: "post",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setImgUrl(data.url.toString());
-          // console.log(data.url.toString());
-          setLoader(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          setLoader(false);
-        });
-    } else {
-      console.log("Please select a valid Image");
-      setLoader(false);
-    }
-  };
 
   //Get user data
   const fetchLoggedUser = async () => {
@@ -74,6 +37,48 @@ export const ApplicationContextProvider = ({ children }) => {
   const handleCloseCreatePostModal = () => {
     setOpenCreatePostModal(false);
   };
+
+  // get all the posts
+  const getAllPosts = async () => {
+    try {
+      const axiosConfig = {
+        headers: {
+          "content-type": "application/json",
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      };
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/post/get-all-posts`,
+        axiosConfig
+      );
+      // console.log(data);
+      setAllPosts(data.posts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // get all posts of current user
+
+  const getAllPostsByUserId = async () => {
+    try {
+      const axiosConfig = {
+        headers: {
+          "content-type": "application/json",
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      };
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/post/get-posts`,
+        axiosConfig
+      );
+      console.log(data);
+      setUserPosts(data.userPosts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ApplicationContext.Provider
       value={{
@@ -82,12 +87,14 @@ export const ApplicationContextProvider = ({ children }) => {
         loader,
         setLoader,
         fetchLoggedUser,
-        uploadImage,
         imgUrl,
-        openCreatePostModal,
-        setOpenCreatePostModal,
-        handleCloseCreatePostModal,
+        isModelOpen,
         isMobile,
+        setIsModalOpen,
+        getAllPosts,
+        getAllPostsByUserId,
+        userPosts,
+        allPosts,
       }}
     >
       {children}

@@ -30,11 +30,11 @@ const ProfilePreview = ({ name, username }) => {
 
           <div style={{ flex: 1 }}>
             <Text size="md" weight={500}>
-              {userData?.name}
+              {userData?.username}
             </Text>
 
             <Text color="dimmed" size="sm">
-              {userData?.username}
+              {userData?.name}
             </Text>
           </div>
 

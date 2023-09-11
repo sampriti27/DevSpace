@@ -3,8 +3,9 @@ const router = express.Router(); // initialise router
 const { isVerifiedUser } = require("../middlewares/isVerifiedUser"); //middleware
 const {
   addPost,
-  getPosts,
+  getPostsByUser,
   getPostById,
+  getAllPosts,
   deletePost,
 } = require("../controllers/post/postController");
 
@@ -12,7 +13,9 @@ const {
 
 router.route("/add-post/").post(isVerifiedUser, addPost);
 
-router.route("/get-posts/").get(isVerifiedUser, getPosts);
+router.route("/get-all-posts/").get(isVerifiedUser, getAllPosts);
+
+router.route("/get-posts/").get(isVerifiedUser, getPostsByUser);
 
 router.route("/get-post/:postId").get(isVerifiedUser, getPostById);
 

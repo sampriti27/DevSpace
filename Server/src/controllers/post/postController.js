@@ -29,14 +29,38 @@ const addPost = asyncHandler(async (req, res) => {
   }
 });
 
+//Desc get all posts
+//@route GET /api/v1/users/post/get-all-posts/
+//@access private
+const getAllPosts = asyncHandler(async (req, res) => {
+  try {
+    const allPosts = await Post.find()
+      .populate({
+        path: "userId", // The field in your Post model that references the User model
+        select: "name username photo role", // Specify the fields you want to populate
+      })
+      .exec();
+
+    res.status(200).json({ success: true, posts: allPosts });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
 //Desc get posts of a user
 //@route GET /api/v1/users/post/get-posts/:userId
 //@access private
-const getPosts = asyncHandler(async (req, res) => {
+const getPostsByUser = asyncHandler(async (req, res) => {
   try {
     const userId = req.user._id;
-    const getPost = await Post.find({ userId });
-    res.status(200).json({ success: true, userId, getPost });
+    const userPosts = await Post.find({ userId })
+      .populate({
+        path: "userId", // The field in your Post model that references the User model
+        select: "name username photo role", // Specify the fields you want to populate
+      })
+      .exec();
+
+    res.status(200).json({ success: true, userId, userPosts });
   } catch (error) {
     throw new Error(error);
   }
@@ -72,4 +96,10 @@ const deletePost = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { addPost, getPosts, getPostById, deletePost };
+module.exports = {
+  addPost,
+  getPostsByUser,
+  getPostById,
+  deletePost,
+  getAllPosts,
+};

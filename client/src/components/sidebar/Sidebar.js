@@ -12,7 +12,7 @@ import { Avatar, useMantineColorScheme } from "@mantine/core";
 import { ApplicationContext } from "@/context/ApplicationContext";
 
 const Sidebar = ({ children }) => {
-  const { userData, openCreatePostModal, setOpenCreatePostModal } =
+  const { userData, setIsModalOpen } =
     useContext(ApplicationContext);
   const router = useRouter();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -32,11 +32,10 @@ const Sidebar = ({ children }) => {
       {/* Desktop and laptop view  */}
       <div className="hidden sm:flex">
         <div
-          className={`relative w-20 lg:w-64 lg:relative h-screen p-4  flex flex-col justify-between pl-4 ${
-            dark
-              ? "bg-[#1A1B1E] text-white border-r  border-gray-600"
-              : "bg-white text-black border-r-[1px]"
-          }`}
+          className={`relative w-20 lg:w-64 lg:relative h-screen p-4  flex flex-col justify-between pl-4 ${dark
+            ? "bg-[#1A1B1E] text-white border-r  border-gray-600"
+            : "bg-white text-black border-r-[1px]"
+            }`}
         >
           <Link href="/feed">
             <div className="logo text-3xl font-bold cursor-pointer px-2 hidden lg:block">
@@ -50,9 +49,8 @@ const Sidebar = ({ children }) => {
             <div className="flex flex-col items-start gap-5 mb-20">
               <Link href="/feed">
                 <div
-                  className={`flex items-center w-12 h-12 justify-center lg:justify-start lg:w-56 lg:py-2 ${
-                    dark ? "hover:bg-[#25262B]" : "hover:bg-gray-50"
-                  } rounded-full cursor-pointer`}
+                  className={`flex items-center w-12 h-12 justify-center lg:justify-start lg:w-56 lg:py-2 ${dark ? "hover:bg-[#25262B]" : "hover:bg-gray-50"
+                    } rounded-full cursor-pointer`}
                 >
                   <div
                     className="tooltip tooltip-right block lg:hidden"
@@ -65,9 +63,8 @@ const Sidebar = ({ children }) => {
                 </div>
               </Link>
               <div
-                className={`flex items-center w-12 h-12 justify-center lg:justify-start lg:w-56 lg:py-2 ${
-                  dark ? "hover:bg-[#25262B]" : "hover:bg-gray-50"
-                } rounded-full cursor-pointer`}
+                className={`flex items-center w-12 h-12 justify-center lg:justify-start lg:w-56 lg:py-2 ${dark ? "hover:bg-[#25262B]" : "hover:bg-gray-50"
+                  } rounded-full cursor-pointer`}
               >
                 <div
                   className="tooltip tooltip-right block lg:hidden"
@@ -79,9 +76,8 @@ const Sidebar = ({ children }) => {
                 <p className=" ml-4 hidden lg:block">Search</p>
               </div>
               <div
-                className={`flex items-center w-12 h-12 justify-center lg:justify-start lg:w-56 lg:py-2 ${
-                  dark ? "hover:bg-[#25262B]" : "hover:bg-gray-50"
-                } rounded-full cursor-pointer`}
+                className={`flex items-center w-12 h-12 justify-center lg:justify-start lg:w-56 lg:py-2 ${dark ? "hover:bg-[#25262B]" : "hover:bg-gray-50"
+                  } rounded-full cursor-pointer`}
               >
                 <div
                   className="tooltip tooltip-right block lg:hidden"
@@ -96,10 +92,9 @@ const Sidebar = ({ children }) => {
                 <p className=" ml-4 hidden lg:block">Notification</p>
               </div>
               <div
-                className={`flex items-center w-12 h-12 justify-center lg:justify-start lg:w-56 lg:py-2 ${
-                  dark ? "hover:bg-[#25262B]" : "hover:bg-gray-50"
-                } rounded-full cursor-pointer`}
-                onClick={() => setOpenCreatePostModal(true)}
+                className={`flex items-center w-12 h-12 justify-center lg:justify-start lg:w-56 lg:py-2 ${dark ? "hover:bg-[#25262B]" : "hover:bg-gray-50"
+                  } rounded-full cursor-pointer`}
+                onClick={() => setIsModalOpen(true)}
               >
                 <div
                   className="tooltip tooltip-right block lg:hidden"
@@ -112,9 +107,8 @@ const Sidebar = ({ children }) => {
               </div>
               <Link href="/profile">
                 <div
-                  className={`flex items-center w-12 h-12 justify-center lg:justify-start lg:w-56 lg:py-2 ${
-                    dark ? "hover:bg-[#25262B]" : "hover:bg-gray-50"
-                  } rounded-full cursor-pointer`}
+                  className={`flex items-center w-12 h-12 justify-center lg:justify-start lg:w-56 lg:py-2 ${dark ? "hover:bg-[#25262B]" : "hover:bg-gray-50"
+                    } rounded-full cursor-pointer`}
                 >
                   <div
                     className="tooltip tooltip-right block lg:hidden"
@@ -124,6 +118,7 @@ const Sidebar = ({ children }) => {
                       size="sm"
                       src={userData?.photo}
                       className="lg:ml-3"
+                      radius={120}
                     />
                   </div>
                   <Avatar
@@ -141,9 +136,8 @@ const Sidebar = ({ children }) => {
               <Menu shadow="md" width={200}>
                 <Menu.Target>
                   <div
-                    className={`flex items-center w-12 h-12 justify-center lg:justify-start lg:w-56 lg:py-2 ${
-                      dark ? "hover:bg-[#25262B]" : "hover:bg-gray-50"
-                    } rounded-full cursor-pointer`}
+                    className={`flex items-center w-12 h-12 justify-center lg:justify-start lg:w-56 lg:py-2 ${dark ? "hover:bg-[#25262B]" : "hover:bg-gray-50"
+                      } rounded-full cursor-pointer`}
                   >
                     <div
                       className="tooltip tooltip-right block lg:hidden"
@@ -191,51 +185,50 @@ const Sidebar = ({ children }) => {
           <main>{children}</main>
 
           <div
-            className={`fixed w-full h-16 p-4 ${
-              dark
-                ? "bg-[#1A1B1E] text-white border-slate-50"
-                : "bg-white text-black border-t-[2px]"
-            }  flex  px-8 items-center justify-between`}
+            className={`fixed w-full h-16 p-4 ${dark
+              ? "bg-[#1A1B1E] text-white border-slate-50"
+              : "bg-white text-black border-t-[2px]"
+              }  flex  px-8 items-center justify-between`}
           >
             <Link href="/feed">
               <div
-                className={`flex items-center w-12 h-12 justify-center${
-                  dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
-                } rounded-full cursor-pointer`}
+                className={`flex items-center w-12 h-12 justify-center${dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
+                  } rounded-full cursor-pointer`}
               >
                 <AiFillHome size={28} />
               </div>
             </Link>
             <div
-              className={`flex items-center w-12 h-12 justify-center${
-                dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
-              } rounded-full cursor-pointer`}
+              className={`flex items-center w-12 h-12 justify-center${dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
+                } rounded-full cursor-pointer`}
             >
               <FiSearch size={28} />
             </div>
             <div
-              className={`flex items-center w-12 h-12 justify-center${
-                dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
-              } rounded-full cursor-pointer`}
-              onClick={() => setOpenCreatePostModal(true)}
+              className={`flex items-center w-12 h-12 justify-center${dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
+                } rounded-full cursor-pointer`}
+              onClick={() => setIsModalOpen(true)}
             >
               <FiPlusSquare size={28} />
             </div>
             <Link href="/profile">
               <div
-                className={`flex items-center w-12 h-12 justify-center${
-                  dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
-                } rounded-full cursor-pointer`}
+                className={`flex items-center w-12 h-12 justify-center${dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
+                  } rounded-full cursor-pointer`}
               >
-                <Avatar size="sm" src={userData?.photo} className="lg:ml-3" />
+                <Avatar
+                  size="sm"
+                  src={userData?.photo}
+                  radius={120}
+                  className="lg:ml-3 "
+                />
               </div>
             </Link>
             <Menu shadow="md" width={200}>
               <Menu.Target>
                 <div
-                  className={`flex items-center w-12 h-12 justify-center${
-                    dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
-                  } rounded-full cursor-pointer`}
+                  className={`flex items-center w-12 h-12 justify-center${dark ? "hover:bg-[#25262B]" : " hover:bg-gray-50"
+                    } rounded-full cursor-pointer`}
                 >
                   <div
                     className="tooltip tooltip-right block lg:hidden"

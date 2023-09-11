@@ -16,7 +16,7 @@ const ProfileDetails = () => {
         setAvatarSize(100);
       } else if (screenWidth <= 1024) {
         // Medium screens
-        setAvatarSize(150);
+        setAvatarSize(120);
       } else {
         // Large screens
         setAvatarSize(170);
@@ -48,7 +48,7 @@ const ProfileDetails = () => {
   };
   return (
     <>
-      <div className="w-full flex md:flex-row flex-col md:items-start items-center justify-center gap-2 md:px-10  ">
+      <div className="w-full flex md:flex-row md:gap-4 flex-col md:items-start items-center justify-center gap-2 md:px-10  ">
         <div className="">
           <Avatar
             src={userData?.photo}
@@ -56,7 +56,7 @@ const ProfileDetails = () => {
             radius={avatarSize - 20}
           />
         </div>
-        <div className="w-1/2 flex items-center justify-center">
+        <div className="w-1/2 flex items-center justify-center ml-4">
           <ProfileInfo profileData={profileData} />
         </div>
       </div>

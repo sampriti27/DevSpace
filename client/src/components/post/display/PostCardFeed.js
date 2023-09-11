@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BiBookmark } from "react-icons/bi";
 import { BsSend, BsBookmarkCheckFill } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import { RxDotFilled } from "react-icons/rx";
 import { FcLike } from "react-icons/fc";
-import { useDisclosure } from "@mantine/hooks";
+import { formatDistanceToNow } from "date-fns";
+
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import PostDetails from "./PostDetails";
 import {
   createStyles,
@@ -61,15 +63,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const PostCardFeed = ({
-  image,
-  category,
-  title,
-  footer,
-  author,
-  caption,
-  postTime,
-}) => {
+const PostCardFeed = ({ elem }) => {
   const { classes } = useStyles();
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
@@ -81,11 +75,15 @@ const PostCardFeed = ({
   const [save, setSave] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
   const [openLikeModal, setOpenLikeModal] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 50em)");
 
   const handleCloseLikeModal = () => {
     setOpenLikeModal(false);
   };
 
+  const formattedRelativeTime = formatDistanceToNow(new Date(elem?.createdAt), {
+    addSuffix: true,
+  });
   const content = Array(100)
     .fill(0)
     .map((_, index) => (
@@ -122,30 +120,24 @@ const PostCardFeed = ({
   return (
     <Card padding="xs" radius="xs" className={classes.card}>
       <div className={classes.authorInfo}>
-        <Avatar
-          src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YXZhdGFyfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
-          radius="xl"
-        />
+        <Avatar src={elem?.userId.photo} radius="xl" />
         <div className={classes.authorText}>
           <div className="flex gap-1 items-center">
-            <Text fw={600}>{author.name}</Text>
+            <Text fw={600}>{elem?.userId.username}</Text>
 
             <Text fw={400} fz="sm" c="dimmed" className="flex items-center">
               <RxDotFilled size={"0.75rem"} color="gray" />
-              {postTime}
+              {formattedRelativeTime}
             </Text>
           </div>
           <Text fz="xs" c="dimmed">
-            {author.description}
+            {elem?.userId.role}
           </Text>
         </div>
       </div>
 
       <div className={classes.imageWrapper}>
-        <Image
-          src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2ViJTIwZGV2ZWxvcGVyfGVufDB8fDB8fHww&w=1000&q=80"
-          alt={title}
-        />
+        <Image src={elem.postImage} alt="image" fit="contain" />
       </div>
       <Card.Section className={classes.icons}>
         <Group position="apart" style={{ justifyContent: "space-between" }}>
@@ -192,16 +184,18 @@ const PostCardFeed = ({
         </p>
       </div>
 
-      {caption && (
+      {elem.postCaption && (
         <div className="flex items-center">
           <p className="">
-            <span className="font-bold text-sm">{author.username}</span> &nbsp;
-            😎😎😎
+            <span className="font-semibold text-sm">
+              {elem?.userId.username}
+            </span>{" "}
+            &nbsp;
             {showFullCaption ? (
-              caption
+              elem.postCaption
             ) : (
               <>
-                {caption.slice(0, 100)}{" "}
+                {elem.postCaption.slice(0, 100)}{" "}
                 <span
                   className="text-sm cursor-pointer"
                   onClick={toggleCaption}
@@ -237,6 +231,7 @@ const PostCardFeed = ({
         opened={opened}
         onClose={close}
         withCloseButton={false}
+        fullScreen={isMobile}
         size="80%"
         transitionProps={{
           transition: "fade",
@@ -245,7 +240,7 @@ const PostCardFeed = ({
         }}
         style={{ maxHeight: "90vh", overflow: "hidden" }}
       >
-        <PostDetails />
+        <PostDetails elem={elem} onClose={close} />
       </Modal>
       <Modal
         opened={openLikeModal}

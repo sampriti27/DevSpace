@@ -128,7 +128,7 @@ const signin = asyncHandler(async (req, res) => {
 
 const currentUser = asyncHandler(async (req, res) => {
   try {
-    res.json({ sucess: true, loggedUser: req.user }).status(200);
+    res.status(200).json({ sucess: true, loggedUser: req.user });
   } catch (error) {
     res.json(error);
   }

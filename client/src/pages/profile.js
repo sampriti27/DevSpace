@@ -9,9 +9,9 @@ const profile = () => {
   useEffect(() => {
     document.title = `${userData ? userData?.username : "DevSpace"} | Profile`;
   });
+
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
-
   return (
     <>
       <Sidebar>

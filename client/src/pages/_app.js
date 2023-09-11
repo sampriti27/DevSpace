@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { ApplicationContextProvider } from "@/context/ApplicationContext";
 import ProtectedRoute from "@/components/routes/ProtectedRoutes";
+import PostModal from "@/components/modal/PostModal";
 
 export default function App({ Component, pageProps }) {
   const [colorScheme, setColorScheme] = useState("light");
@@ -36,6 +37,7 @@ export default function App({ Component, pageProps }) {
                 pauseOnHover
                 theme="colored"
               />
+              <PostModal />
               <Component {...pageProps} />
             </ProtectedRoute>
           </ApplicationContextProvider>
