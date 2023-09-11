@@ -9,6 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { ApplicationContext } from "@/context/ApplicationContext";
+import { useMantineColorScheme } from "@mantine/core";
 import { uploadImage } from "../utils/auth";
 import { toast } from "react-toastify";
 import PostModalTwo from "./PostModalTwo";
@@ -22,6 +23,10 @@ const PostModal = () => {
   const [loader, setLoader] = useState(false);
   const [size, setSize] = React.useState("md");
   const [imgUrl, setImgUrl] = useState(defaultImg);
+  const { colorScheme } = useMantineColorScheme();
+  const dark = colorScheme === "dark";
+  const bgColor = dark ? "#1A1B1E" : "white";
+
   const handleUpload = (e) => {
     e.preventDefault();
     uploadImage(e.target.files[0])
@@ -49,14 +54,22 @@ const PostModal = () => {
         }}
       >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent bg={bgColor}>
           <ModalHeader>
-            <div>
+            <div
+              className={` ${
+                dark ? "bg-transparent text-white" : "bg-white text-gray-900"
+              } `}
+            >
               <h4 className="text-center">Create new post</h4>
             </div>
           </ModalHeader>
           <ModalBody>
-            <div className="max-w-md mx-auto mt-10 p-4 bg-white rounded-lg">
+            <div
+              className={`max-w-md mx-auto mt-10 p-4 ${
+                dark ? "bg-transparent text-white" : "bg-white text-gray-900"
+              } `}
+            >
               <div className="text-center mb-4">
                 <img
                   id="image-preview"
@@ -99,8 +112,10 @@ const PostModal = () => {
       </Modal>
       <PostModalTwo
         imgUrl={imgUrl}
+        setImgUrl={setImgUrl}
         secondModal={secondModal}
         setSecondModal={setSecondModal}
+        defaultImg={defaultImg}
       />
     </>
   );

@@ -6,11 +6,8 @@ import { useMantineColorScheme, Modal } from "@mantine/core";
 import PostGrid from "../post/display/PostGrid";
 import { ApplicationContext } from "@/context/ApplicationContext";
 
-
 const ProfileBody = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const { isMobile } =
-    useContext(ApplicationContext);
   const dark = colorScheme === "dark";
   return (
     <>
@@ -32,7 +29,6 @@ const ProfileBody = () => {
           Saved Posts
         </Tabs.Panel>
       </Tabs>
-     
     </>
   );
 };

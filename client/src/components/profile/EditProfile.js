@@ -17,7 +17,7 @@ const EditProfile = ({ onClose }) => {
     gender: userData?.gender || "",
     dob: userData?.dob || null,
   });
-  console.log(userData);
+  // console.log(userData);
 
   //submit profile details
   const handleSubmit = async () => {
