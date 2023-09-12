@@ -10,17 +10,11 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { ApplicationContext } from "@/context/ApplicationContext";
 
-const ProfileInfo = ({ profileData }) => {
+const ProfileInfo = ({ userPosts }) => {
   const { userData } = useContext(ApplicationContext);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const [opened, { open, close }] = useDisclosure(false);
   const dark = colorScheme === "dark";
-  const items = profileData.stats.map((stat) => (
-    <div key={stat.label} className="flex items-center gap-2">
-      <Text className="font-medium">{stat.value}</Text>
-      <Text size="md">{stat.label}</Text>
-    </div>
-  ));
 
   return (
     <>
@@ -60,7 +54,18 @@ const ProfileInfo = ({ profileData }) => {
           </div>
         </div>
         <div className="flex items-center justify-start gap-8 mt-4">
-          {items}
+          <div className="flex items-center gap-2">
+            <Text className="font-medium">50</Text>
+            <Text size="md">Followers</Text>
+          </div>
+          <div className="flex items-center gap-2">
+            <Text className="font-medium">{userPosts.length}</Text>
+            <Text size="md">Posts</Text>
+          </div>
+          <div className="flex items-center gap-2">
+            <Text className="font-medium">75</Text>
+            <Text size="md">Likes</Text>
+          </div>
         </div>
         <div className="mt-4 flex flex-col">
           <p className="text-base font-medium tracking-tight">

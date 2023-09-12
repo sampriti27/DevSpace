@@ -240,7 +240,7 @@ const PostCardFeed = ({ elem }) => {
         }}
         style={{ maxHeight: "90vh", overflow: "hidden" }}
       >
-        <PostDetails elem={elem} onClose={close} />
+        <PostDetails elem={elem} onClose={close} options={false} />
       </Modal>
       <Modal
         opened={openLikeModal}

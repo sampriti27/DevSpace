@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { BiBookmark } from "react-icons/bi";
 import { BsSend, BsBookmarkCheckFill } from "react-icons/bs";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { FcLike } from "react-icons/fc";
 import {
   createStyles,
+  Menu,
   Image,
+  Button,
   Text,
   useMantineColorScheme,
   Avatar,
   ActionIcon,
   Group,
 } from "@mantine/core";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { ApplicationContext } from "@/context/ApplicationContext";
 
 const useStyles = createStyles((theme) => ({
   authorInfo: {
@@ -55,12 +60,36 @@ const LargeScreenImage = ({ elem }) => {
   );
 };
 
-const PostDetails = ({ onClose, elem }) => {
+const PostDetails = ({ onClose, elem, options }) => {
   const { classes, theme } = useStyles();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const [like, setLike] = useState(false);
   const [save, setSave] = useState(false);
   const dark = colorScheme === "dark";
+  const { getAllPosts, getAllPostsByUserId } = useContext(ApplicationContext);
+  const handleDelete = async (id) => {
+    const postId = id;
+    try {
+      const axiosConfig = {
+        headers: {
+          "content-type": "application/json",
+          Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
+        },
+      };
+      const { data } = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/post/delete-post/${postId}`,
+
+        axiosConfig
+      );
+
+      console.log(data);
+      onClose();
+      getAllPosts();
+      getAllPostsByUserId();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div
       className={`flex flex-col sm:flex-row items-start gap-2 h-full overflow-hidden`}
@@ -88,11 +117,37 @@ const PostDetails = ({ onClose, elem }) => {
               </div>
             </div>
           </div>
-          <AiOutlineClose
-            size={20}
-            className="cursor-pointer"
-            onClick={onClose}
-          />
+          {options ? (
+            <Menu shadow="md" width={200}>
+              <Menu.Target>
+                <div>
+                  <BsThreeDots className="cursor-pointer" />
+                </div>
+              </Menu.Target>
+
+              <Menu.Dropdown>
+                <Menu.Item icon={<AiFillEdit size={14} />}>Edit</Menu.Item>
+                <Menu.Item
+                  icon={<AiFillDelete size={14} />}
+                  onClick={() => handleDelete(elem._id)}
+                >
+                  Delete
+                </Menu.Item>
+                <Menu.Item
+                  icon={<AiOutlineClose size={14} />}
+                  onClick={onClose}
+                >
+                  Close
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          ) : (
+            <AiOutlineClose
+              size={20}
+              className="cursor-pointer"
+              onClick={onClose}
+            />
+          )}
         </div>
         <div className="w-full px-2 mt-2 border border-gray-100 h-0"></div>
         <div className="max-h-full aspect-w-1 aspect-h-1 ">
@@ -108,8 +163,8 @@ const PostDetails = ({ onClose, elem }) => {
       <div className="flex-1 flex flex-col justify-between h-[600px] ">
         {/* header starts */}
         <div className="">
-          <div className=" hidden sm:flex items-center justify-between ">
-            <div className="flex items-center justify-between ">
+          <div className=" hidden sm:flex items-center justify-between relative">
+            <div className="flex items-center justify-between">
               <div className={classes.authorInfo}>
                 <Avatar src={elem?.userId.photo} radius="xl" />
                 <div className={classes.authorText}>
@@ -129,11 +184,37 @@ const PostDetails = ({ onClose, elem }) => {
                 </div>
               </div>
             </div>
-            <AiOutlineClose
-              size={20}
-              className="cursor-pointer"
-              onClick={onClose}
-            />
+            {options ? (
+              <Menu shadow="md" width={200}>
+                <Menu.Target>
+                  <div>
+                    <BsThreeDots className="cursor-pointer" />
+                  </div>
+                </Menu.Target>
+
+                <Menu.Dropdown>
+                  <Menu.Item icon={<AiFillEdit size={14} />}>Edit</Menu.Item>
+                  <Menu.Item
+                    icon={<AiFillDelete size={14} />}
+                    onClick={() => handleDelete(elem._id)}
+                  >
+                    Delete
+                  </Menu.Item>
+                  <Menu.Item
+                    icon={<AiOutlineClose size={14} />}
+                    onClick={onClose}
+                  >
+                    Close
+                  </Menu.Item>
+                </Menu.Dropdown>
+              </Menu>
+            ) : (
+              <AiOutlineClose
+                size={20}
+                className="cursor-pointer"
+                onClick={onClose}
+              />
+            )}
           </div>
           <div className="w-full px-2 mt-2 border border-gray-100 h-0"></div>
           {/* header ends */}

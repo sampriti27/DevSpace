@@ -72,7 +72,7 @@ export const ApplicationContextProvider = ({ children }) => {
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/post/get-posts`,
         axiosConfig
       );
-      console.log(data);
+      // console.log(data);
       setUserPosts(data.userPosts);
     } catch (error) {
       console.log(error);

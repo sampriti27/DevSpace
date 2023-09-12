@@ -26,7 +26,7 @@ const PostGridDisplay = ({ elem }) => {
           fullScreen={isMobile}
           transitionProps={{ transition: "fade", duration: 200 }}
         >
-          <PostDetails onClose={close} elem={elem} />
+          <PostDetails onClose={close} elem={elem} options={true} />
         </Modal>
       </div>
     </>

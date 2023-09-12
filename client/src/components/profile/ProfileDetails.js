@@ -5,7 +5,7 @@ import { ApplicationContext } from "@/context/ApplicationContext";
 
 const ProfileDetails = () => {
   const [avatarSize, setAvatarSize] = useState(170);
-  const { userData } = useContext(ApplicationContext);
+  const { userData, userPosts } = useContext(ApplicationContext);
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,19 +33,6 @@ const ProfileDetails = () => {
     };
   }, []);
 
-  const profileData = {
-    name: "John Doe",
-    email: "johndoe@example.com",
-    username: "john_Doe",
-    job: "Software Engineer",
-    completed: 75,
-    total: 100,
-    stats: [
-      { value: 50, label: "Followers" },
-      { value: 25, label: "Posts" },
-      { value: 80, label: "Likes" },
-    ],
-  };
   return (
     <>
       <div className="w-full flex md:flex-row md:gap-4 flex-col md:items-start items-center justify-center gap-2 md:px-10  ">
@@ -57,7 +44,7 @@ const ProfileDetails = () => {
           />
         </div>
         <div className="w-1/2 flex items-center justify-center ml-4">
-          <ProfileInfo profileData={profileData} />
+          <ProfileInfo userPosts={userPosts} />
         </div>
       </div>
     </>
